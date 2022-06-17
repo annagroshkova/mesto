@@ -3,7 +3,10 @@
   align-items: center;
   justify-content: center;
   background-color: black;
-  padding: 0;
+  background-image: url("../../../images/edit-button.svg");
+  background-size: 8px;
+  background-position: center;
+  background-repeat: no-repeat;
   width: 18px;
   height: 18px;
   border: white 1px solid;
