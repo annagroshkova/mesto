@@ -1,0 +1,7 @@
+.element__info {
+  position: absolute;
+  bottom: 0;
+  height: 79px;
+  width: 100%;
+  background-color: white;
+}
