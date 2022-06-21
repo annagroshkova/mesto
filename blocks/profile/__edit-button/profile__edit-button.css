@@ -12,6 +12,12 @@
   border: white 1px solid;
   position: absolute;
   right: -28px;
+  cursor: pointer;
+  transition: opacity 0.3s ease-out;
+}
+
+.profile__edit-button:hover {
+  opacity: .6;
 }
 
 @media screen and (min-width: 880px) {

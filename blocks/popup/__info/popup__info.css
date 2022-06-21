@@ -1,0 +1,9 @@
+.popup__info {
+  padding-top: 75px;
+  margin: 0;
+  border: none;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 30px;
+}
