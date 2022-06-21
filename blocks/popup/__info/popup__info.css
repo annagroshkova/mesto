@@ -7,3 +7,10 @@
   flex-direction: column;
   gap: 30px;
 }
+
+@media screen and (min-width: 880px) {
+  .popup__info {
+    padding-top: 54px;
+  }
+}
+
