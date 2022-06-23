@@ -16,7 +16,7 @@ closeButton.addEventListener('click', closePopup);
 
 // Находим форму в DOM
 let formElement = document.querySelector('.popup__form');// Воспользуйтесь методом querySelector()
-let submitButton = formElement.querySelector('.popup__submit-button');
+
  // Находим поля формы в DOM
   let nameInput = document.querySelector('.popup__input_name');// Воспользуйтесь инструментом .querySelector()
   let jobInput = document.querySelector('.popup__input_description');// Воспользуйтесь инструментом .querySelector()
@@ -28,16 +28,16 @@ let submitButton = formElement.querySelector('.popup__submit-button');
     // Так мы можем определить свою логику отправки.
     // О том, как это делать, расскажем позже.
 
-    nameInput.value = `${nameInput.textContent}`;
-    jobInput.value = `${jobInput.textContent}`;// Получите значение полей jobInput и nameInput из свойства value
+    nameInput.textContent = nameInput.value;
+    jobInput.textContent = jobInput.value;// Получите значение полей jobInput и nameInput из свойства value
 
-   let profileName = document.querySelector('.profile__name');
+   let profileName = document.querySelector('.profile__name-text');
    let profileJob = document.querySelector('.profile__description');// Выберите элементы, куда должны быть вставлены значения полей
 
-    profileName.textContent = `${nameInput.value}`;
-    profileJob.textContent = `${jobInput.value}`;// Вставьте новые значения с помощью textContent
+    profileName.textContent = nameInput.value;
+    profileJob.textContent = jobInput.value;// Вставьте новые значения с помощью textContent
 
-    console.log('nameInput.value');
+    console.log(nameInput.value);
 
     closePopup();
   }
