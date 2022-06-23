@@ -1,5 +1,5 @@
 .popup__info {
-  padding-top: 75px;
+  padding-top: 67px;
   margin: 0;
   border: none;
   display: flex;
@@ -10,7 +10,7 @@
 
 @media screen and (min-width: 880px) {
   .popup__info {
-    padding-top: 54px;
+    padding-top: 46px;
   }
 }
 
