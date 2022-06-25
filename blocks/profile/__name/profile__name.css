@@ -1,14 +1,13 @@
 .profile__name {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: inline-block;
   position: relative;
+  max-width: 100%;
+
+
 }
 
 @media screen and (min-width: 918px) {
   .profile__name {
-    position: static;
     text-align: start;
-    align-items: baseline;
   }
 }
