@@ -1,12 +1,14 @@
 .header {
+  width: 100vw;
   padding-top: 28px;
   max-width: 880px;
   display: flex;
   flex-direction: column;
   margin: auto;
+  border-bottom: rgba(84, 84, 84, .7) 1px solid;
 }
 
-@media screen and (min-width: 880px) {
+@media screen and (min-width: 918px) {
   .header {
     padding-top: 45px;
   }

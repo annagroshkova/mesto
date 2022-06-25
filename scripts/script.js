@@ -10,7 +10,7 @@ let jobInput = document.querySelector('.popup__input_type_description');
 
 function openPopup() {
   popup.classList.add('popup_opened');
-  
+
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 }
