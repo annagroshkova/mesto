@@ -1,5 +1,7 @@
 Проект: Место
 
+Портал о путешествиях
+
 https://annagroshkova.github.io/mesto/
 
 Технологии:
