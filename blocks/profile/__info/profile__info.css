@@ -1,5 +1,12 @@
 .profile__info {
+  width: 70%;
+  min-width: 200px;
+  max-width: 500px;
   padding-top: 22px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
 }
 
 
