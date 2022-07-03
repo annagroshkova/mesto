@@ -5,4 +5,5 @@
   display: grid;
   grid-template-columns: 282px;
   grid-template-rows: 282px auto;
+  position: relative;
 }
