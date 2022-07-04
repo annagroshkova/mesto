@@ -32,6 +32,9 @@ const popupEdit = document.querySelector('.popup_edit');
 const popupAdd = document.querySelector('.popup_add');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+const formAddElement = document.querySelector('.popup__form_add');
+const imageInput = document.querySelector('.popup__input_type_link');
+const placeInput = document.querySelector('.popup__input_type_place');
 const formEditElement = document.querySelector('.popup__form_edit');
 const profileName = document.querySelector('.profile__name-text');
 const profileJob = document.querySelector('.profile__description');
@@ -43,13 +46,51 @@ initialCards.forEach(function(item) {
   const card = cardContainer.querySelector('.element').cloneNode(true);
   const cardImage = card.querySelector('.element__image');
   const cardText = card.querySelector('.element__text');
+  const likeButton = card.querySelector('.element__like-button');
+  const deleteButton = card.querySelector('.element__trash-icon');
 
   cardImage.src = item.link;
   cardImage.alt = item.name;
   cardText.textContent = item.name;
 
   elements.append(card);
+
+  likeButton.addEventListener('click', () => {
+    likeButton.classList.toggle('element__like-button_active');
+  });
+
+  deleteButton.addEventListener('click', () => {
+    const cardItem = deleteButton.closest('.element');
+    cardItem.remove();
+  });
 });
+
+ function addCard (evt) {
+   evt.preventDefault();
+
+   const card = cardContainer.querySelector('.element').cloneNode(true);
+   const cardImage = card.querySelector('.element__image');
+   const cardText = card.querySelector('.element__text');
+   const likeButton = card.querySelector('.element__like-button');
+   const deleteButton = card.querySelector('.element__trash-icon');
+
+   cardImage.src = imageInput.value;
+   cardImage.alt = imageInput.value;
+   cardText.textContent = placeInput.value;
+
+   elements.append(card);
+
+   likeButton.addEventListener('click', () => {
+     likeButton.classList.toggle('element__like-button_active');
+   });
+
+   deleteButton.addEventListener('click', () => {
+     const cardItem = deleteButton.closest('.element');
+     cardItem.remove();
+   });
+
+   closePopup();
+ }
 
 
 function openPopupEdit() {
@@ -80,7 +121,7 @@ function formEditSubmitHandler (evt) {
 editButton.addEventListener('click', openPopupEdit);
 addButton.addEventListener('click', openPopupAdd);
 formEditElement.addEventListener('submit', formEditSubmitHandler);
-
+formAddElement.addEventListener('submit', addCard);
 document.querySelectorAll('.popup__close-button').forEach(function(closeButton) {
   closeButton.addEventListener('click', closePopup);
 });
