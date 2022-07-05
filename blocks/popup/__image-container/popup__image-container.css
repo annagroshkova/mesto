@@ -1,0 +1,4 @@
+.popup__image-container {
+  object-fit: cover;
+  position: relative;
+}

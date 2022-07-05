@@ -42,16 +42,19 @@ const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_description');
 
 initialCards.forEach(function(item) {
+  addCard(item.link, item.name);
+});
 
+function addCard(link, text) {
   const card = cardContainer.querySelector('.element').cloneNode(true);
   const cardImage = card.querySelector('.element__image');
   const cardText = card.querySelector('.element__text');
   const likeButton = card.querySelector('.element__like-button');
   const deleteButton = card.querySelector('.element__trash-icon');
 
-  cardImage.src = item.link;
-  cardImage.alt = item.name;
-  cardText.textContent = item.name;
+  cardImage.src = link;
+  cardImage.alt = link;
+  cardText.textContent = text;
 
   elements.append(card);
 
@@ -63,31 +66,12 @@ initialCards.forEach(function(item) {
     const cardItem = deleteButton.closest('.element');
     cardItem.remove();
   });
-});
+}
 
- function addCard (evt) {
+ function addNewCard (evt) {
    evt.preventDefault();
 
-   const card = cardContainer.querySelector('.element').cloneNode(true);
-   const cardImage = card.querySelector('.element__image');
-   const cardText = card.querySelector('.element__text');
-   const likeButton = card.querySelector('.element__like-button');
-   const deleteButton = card.querySelector('.element__trash-icon');
-
-   cardImage.src = imageInput.value;
-   cardImage.alt = imageInput.value;
-   cardText.textContent = placeInput.value;
-
-   elements.append(card);
-
-   likeButton.addEventListener('click', () => {
-     likeButton.classList.toggle('element__like-button_active');
-   });
-
-   deleteButton.addEventListener('click', () => {
-     const cardItem = deleteButton.closest('.element');
-     cardItem.remove();
-   });
+   addCard(imageInput.value, placeInput.value)
 
    closePopup();
  }
@@ -121,7 +105,7 @@ function formEditSubmitHandler (evt) {
 editButton.addEventListener('click', openPopupEdit);
 addButton.addEventListener('click', openPopupAdd);
 formEditElement.addEventListener('submit', formEditSubmitHandler);
-formAddElement.addEventListener('submit', addCard);
+formAddElement.addEventListener('submit', addNewCard);
 document.querySelectorAll('.popup__close-button').forEach(function(closeButton) {
   closeButton.addEventListener('click', closePopup);
 });

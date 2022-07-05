@@ -1,0 +1,15 @@
+.popup__inner-container {
+  max-height: 300px;
+  width: 240px;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 880px) {
+  .popup__inner-container {
+    height: 540px;
+    max-height: 540px;
+    width: auto;
+    max-width: 816px;
+  }
+}
+
