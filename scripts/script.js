@@ -32,6 +32,9 @@ const popupEdit = document.querySelector('.popup_edit');
 const popupAdd = document.querySelector('.popup_add');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+const popupPreview = document.querySelector('.popup_image-preview');
+const popupImage = popupPreview.querySelector('.popup__image');
+const popupUndertext = popupPreview.querySelector('.popup__undertext');
 const formAddElement = document.querySelector('.popup__form_add');
 const imageInput = document.querySelector('.popup__input_type_link');
 const placeInput = document.querySelector('.popup__input_type_place');
@@ -51,6 +54,7 @@ function addCard(link, text) {
   const cardText = card.querySelector('.element__text');
   const likeButton = card.querySelector('.element__like-button');
   const deleteButton = card.querySelector('.element__trash-icon');
+  const imagePreview = card.querySelector('.element__image');
 
   cardImage.src = link;
   cardImage.alt = link;
@@ -65,6 +69,14 @@ function addCard(link, text) {
   deleteButton.addEventListener('click', () => {
     const cardItem = deleteButton.closest('.element');
     cardItem.remove();
+  });
+
+  imagePreview.addEventListener('click', () => {
+    popupPreview.classList.add('popup_opened');
+
+    popupImage.src = link;
+    popupImage.alt = link;
+    popupUndertext.textContent = text;
   });
 }
 
