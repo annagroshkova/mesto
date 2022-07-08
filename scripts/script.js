@@ -30,8 +30,8 @@ const cardContainer = document.querySelector('#card-container').content;
 
 const popupEdit = document.querySelector('.popup_edit');
 const popupAdd = document.querySelector('.popup_add');
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
+const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonAdd = document.querySelector('.profile__add-button');
 const popupPreview = document.querySelector('.popup_image-preview');
 const popupImage = popupPreview.querySelector('.popup__image');
 const popupUndertext = popupPreview.querySelector('.popup__undertext');
@@ -45,10 +45,10 @@ const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_description');
 
 initialCards.forEach(function(item) {
-  addCard(item.link, item.name);
+  createCard(item.link, item.name);
 });
 
-function addCard(link, text) {
+function createCard(link, text) {
   const card = cardContainer.querySelector('.element').cloneNode(true);
   const cardImage = card.querySelector('.element__image');
   const cardText = card.querySelector('.element__text');
@@ -57,7 +57,7 @@ function addCard(link, text) {
   const imagePreview = card.querySelector('.element__image');
 
   cardImage.src = link;
-  cardImage.alt = link;
+  cardImage.alt = text;
   cardText.textContent = text;
 
   elements.append(card);
@@ -67,15 +67,14 @@ function addCard(link, text) {
   });
 
   deleteButton.addEventListener('click', () => {
-    const cardItem = deleteButton.closest('.element');
-    cardItem.remove();
+    deleteButton.closest('.element').remove();
   });
 
   imagePreview.addEventListener('click', () => {
     popupPreview.classList.add('popup_opened');
 
     popupImage.src = link;
-    popupImage.alt = link;
+    popupImage.alt = text;
     popupUndertext.textContent = text;
   });
 }
@@ -83,7 +82,7 @@ function addCard(link, text) {
  function addNewCard (evt) {
    evt.preventDefault();
 
-   addCard(imageInput.value, placeInput.value)
+   createCard(imageInput.value, placeInput.value)
 
    closePopup();
  }
@@ -114,8 +113,8 @@ function formEditSubmitHandler (evt) {
 }
 
 
-editButton.addEventListener('click', openPopupEdit);
-addButton.addEventListener('click', openPopupAdd);
+buttonEdit.addEventListener('click', openPopupEdit);
+buttonAdd.addEventListener('click', openPopupAdd);
 formEditElement.addEventListener('submit', formEditSubmitHandler);
 formAddElement.addEventListener('submit', addNewCard);
 document.querySelectorAll('.popup__close-button').forEach(function(closeButton) {
