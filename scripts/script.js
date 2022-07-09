@@ -30,14 +30,22 @@ const cardContainer = document.querySelector('#card-container').content;
 
 const popupEdit = document.querySelector('.popup_edit');
 const popupAdd = document.querySelector('.popup_add');
+const popupPreview = document.querySelector('.popup_image-preview');
+
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
-const popupPreview = document.querySelector('.popup_image-preview');
+
+const buttonClosePopupEdit = popupEdit.querySelector('.popup__close-button');
+const buttonClosePopupAdd = popupAdd.querySelector('.popup__close-button');
+const buttonClosePopupPreview = popupPreview.querySelector('.popup__close-button');
+
 const popupImage = popupPreview.querySelector('.popup__image');
 const popupUndertext = popupPreview.querySelector('.popup__undertext');
+
 const formAddElement = document.querySelector('.popup__form_add');
 const imageInput = document.querySelector('.popup__input_type_link');
 const placeInput = document.querySelector('.popup__input_type_place');
+
 const formEditElement = document.querySelector('.popup__form_edit');
 const profileName = document.querySelector('.profile__name-text');
 const profileJob = document.querySelector('.profile__description');
@@ -94,21 +102,6 @@ function closePopup (popup) {
   popup.classList.remove('popup_opened');
 }
 
-/*function openPopupEdit() {
-  popupEdit.classList.add('popup_opened');
-
-  nameInput.value=  profileName.textContent;
-  jobInput.value = profileJob.textContent;
-}
-
-function openPopupAdd() {
-  popupAdd.classList.add('popup_opened');
-}
-
-function closePopup() {
-  document.querySelector('.popup_opened').classList.remove('popup_opened');
-}*/
-
 function formEditSubmitHandler (evt) {
   evt.preventDefault();
 
@@ -124,14 +117,26 @@ buttonEdit.addEventListener('click', () => {
   nameInput.value=  profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
+
 buttonAdd.addEventListener('click', () => {
 openPopup(popupAdd)
 });
+
+buttonClosePopupEdit.addEventListener('click', () => {
+  closePopup(popupEdit);
+});
+
+buttonClosePopupAdd.addEventListener('click', () => {
+  closePopup(popupAdd);
+});
+
+buttonClosePopupPreview.addEventListener('click', () => {
+  closePopup(buttonClosePopupPreview.closest('.popup_image-preview'));
+});
+
 formEditElement.addEventListener('submit', formEditSubmitHandler);
 formAddElement.addEventListener('submit', addNewCard);
-document.querySelectorAll('.popup__close-button').forEach(function(buttonClose) {
-  buttonClose.addEventListener('click', closePopup);
-});
+
 
 
 
