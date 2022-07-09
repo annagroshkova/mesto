@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-    name: 'Стокгольм',
-    link: 'images/stockholm.jpg'
-  },
-  {
-    name: 'Мальмё',
-    link: 'images/malmo-4208473.jpg'
-  },
-  {
-    name: 'Гётеборг',
-    link: 'images/gothenburg.jpg'
-  },
-  {
-    name: 'Эресуннский мост',
-    link: 'images/oresund_bridge.jpg'
-  },
-  {
-    name: 'Лапландия',
-    link: 'images/lappland.jpg'
-  },
-  {
-    name: 'Остров Готланд',
-    link: 'images/gotland.jpg'
-  }
-];
-
 const elements = document.querySelector('.elements');
 const cardContainer = document.querySelector('#card-container').content;
 
@@ -53,7 +26,8 @@ const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_description');
 
 initialCards.forEach(function(item) {
-  createCard(item.link, item.name);
+  const initialCard = createCard(item.link, item.name);
+  elements.append(initialCard);
 });
 
 function createCard(link, text) {
@@ -67,8 +41,6 @@ function createCard(link, text) {
   cardImage.src = link;
   cardImage.alt = text;
   cardText.textContent = text;
-
-  elements.append(card);
 
   likeButton.addEventListener('click', () => {
     likeButton.classList.toggle('element__like-button_active');
@@ -85,12 +57,16 @@ function createCard(link, text) {
     popupImage.alt = text;
     popupUndertext.textContent = text;
   });
+
+  return card;
 }
 
  function addNewCard (evt) {
    evt.preventDefault();
 
-   createCard(imageInput.value, placeInput.value)
+   const newCard = createCard(imageInput.value, placeInput.value);
+
+   elements.prepend(newCard);
 
    closePopup(popupAdd);
  }
