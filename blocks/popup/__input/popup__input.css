@@ -9,3 +9,7 @@
   text-align: start;
 }
 
+.popup__input::-webkit-input-placeholder {color:rgba(0, 0, 0, .2)}
+.popup__input::-moz-placeholder          {color:rgba(0, 0, 0, .2)}
+.popup__input::-ms-input-placeholder     {color:rgba(0, 0, 0, .2)}
+.popup__input::placeholder               {color:rgba(0, 0, 0, .2)}
