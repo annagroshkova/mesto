@@ -1,4 +1,5 @@
 .popup__input {
+  outline: none;
   border: none;
   border-bottom: rgba(0, 0, 0, .2) 1px solid;
   padding: 8px 0;

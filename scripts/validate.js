@@ -4,73 +4,71 @@ enableValidation({
   submitButtonSelector: '.popup__submit-button',
   inactiveButtonClass: 'popup__submit-button_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
+  errorClass: 'popup__error_visible',
 })
 
 function enableValidation(obj) {
-  console.log('you suck!')
-  const formEl = document.querySelector(obj.formSelector);
-  const inputList = Array.from(formEl.querySelectorAll(obj.formSelector));
-  const buttonSubmit = formEl.querySelector(obj.submitButtonSelector);
   const formList = Array.from(document.querySelectorAll(obj.formSelector));
 
-  formList.forEach((form) => {
-    form.addEventListener('submit', (evt) => {
+  formList.forEach((formEl) => {
+    console.log('you suck!', formEl)
+    const inputList = Array.from(formEl.querySelectorAll(obj.inputSelector));
+    const buttonSubmit = formEl.querySelector(obj.submitButtonSelector);
+
+    formEl.addEventListener('submit', (evt) => {
       evt.preventDefault();
     })
-  })
 
-  function showInputError(form, input, errorMessage) {
-    console.log('still suck')
-    const error = form.querySelector(`.${input.id}-error`);
-    input.classList.add(obj.inputErrorClass);
-    error.textContent = errorMessage;
-    error.classList.add(obj.errorClass);
-  }
-
-  function hideInputError(form, input) {
-    console.log('still suck')
-    const error = form.querySelector(`.${input.id}-error`);
-    input.classList.remove(obj.inputErrorClass);
-    error.textContent = '';
-    error.classList.remove(obj.errorClass);
-  }
-
-  function setEventListeners(form) {
     console.log('still suck')
     toggleButtonState(inputList, buttonSubmit);
 
-    inputList.forEach((input) => {
-      input.addEventListener('input', function () {
-        checkInputValidity(form, input);
+    inputList.forEach((inputEl) => {
+      inputEl.addEventListener('input', function () {
+        checkInputValidity(formEl, inputEl);
         toggleButtonState(inputList, buttonSubmit);
       });
     });
-  }
-
-  const checkInputValidity = (form, input) => {
-    if (!input.validity.valid) {
-      showInputError(form, input, input.validationMessage);
-    } else {
-      hideInputError(form, input);
-    }
-  }
-
-  function hasInvalidInput(inputList) {
-    return inputList.some((input) => {
-      return !input.validity.valid;
-    })
-  }
+  })
 
   function toggleButtonState(inputList, buttonSubmit) {
     if (hasInvalidInput(inputList)) {
+      console.log('Aaaaand suck!')
       buttonSubmit.classList.add(obj.inactiveButtonClass);
     } else {
       buttonSubmit.classList.remove(obj.inactiveButtonClass);
     }
   }
 
-  setEventListeners(obj.formSelector)
+  function showInputError(formEl, inputEl, errorMessage) {
+    console.log('still suck show')
+    const errorEl = formEl.querySelector(`.${inputEl.id}-error`);
+    inputEl.classList.add(obj.inputErrorClass);
+    errorEl.textContent = errorMessage;
+    errorEl.classList.add(obj.errorClass);
+  }
+
+  function hideInputError(formEl, inputEl) {
+    console.log('still suck hide')
+    const errorEl = formEl.querySelector(`.${inputEl.id}-error`);
+    inputEl.classList.remove(obj.inputErrorClass);
+    errorEl.textContent = '';
+    errorEl.classList.remove(obj.errorClass);
+  }
+
+  function checkInputValidity(formEl, inputEl) {
+    if (!inputEl.validity.valid) {
+      showInputError(formEl, inputEl, inputEl.validationMessage);
+    } else {
+      hideInputError(formEl, inputEl);
+    }
+  }
+
+  function hasInvalidInput(inputList) {
+    console.log('huy');
+    return inputList.some((inputEl) => {
+      return !inputEl.validity.valid;
+    })
+  }
 }
 
 

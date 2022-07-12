@@ -40,10 +40,10 @@
     <h3 class="popup__heading">Редактировать профиль</h3>
     <form class="popup__form popup__form_edit" name="profile-form">
       <fieldset class="popup__info">
-        <input class="popup__input popup__input_type_name" type="text" id="name" placeholder="Имя" value="Жак-Ив Кусто">
-        <span class="name-error"></span>
-        <input class="popup__input popup__input_type_description" type="text" id="about-yourself" placeholder="О себе" value="Исследователь океана">
-        <span class="about-yourself-error"></span>
+        <input class="popup__input popup__input_type_name" type="text" id="name" placeholder="Имя" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+        <span class="popup__error name-error"></span>
+        <input class="popup__input popup__input_type_description" type="text" id="about-yourself" placeholder="О себе" value="Исследователь океана" minlength="2" maxlength="200" required>
+        <span class="popup__error about-yourself-error"></span>
       </fieldset>
       <button class="popup__submit-button" type="submit">Сохранить</button>
     </form>
@@ -56,10 +56,10 @@
     <h3 class="popup__heading">Новое место</h3>
     <form class="popup__form popup__form_add" name="profile-form">
       <fieldset class="popup__info">
-        <input class="popup__input popup__input_type_place" type="text" name="place-name" placeholder="Название" value="">
-        <span class="place-name-error"></span>
-        <input class="popup__input popup__input_type_link" type="url" name="image-link" placeholder="Ссылка на картинку">
-        <span class="image-link-error"></span>
+        <input class="popup__input popup__input_type_place" type="text" id="place-name" placeholder="Название" value="" minlength="2" maxlength="40" required>
+        <span class="popup__error place-name-error"></span>
+        <input class="popup__input popup__input_type_link" type="url" id="image-link" placeholder="Ссылка на картинку" value="" required>
+        <span class="popup__error image-link-error"></span>
       </fieldset>
       <button class="popup__submit-button" type="submit">Создать</button>
     </form>
@@ -91,8 +91,8 @@
 </template>
 
 <script src="scripts/initialCards.js"></script>
-<script src="scripts/validate.js"></script>
 <script src="scripts/script.js"></script>
+<script src="scripts/validate.js"></script>
 
 </body>
 </html>

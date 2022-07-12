@@ -1,6 +1,8 @@
 .popup__info {
   padding-top: 61px;
   padding-bottom: 45px;
+  height: 238px;
+  box-sizing: border-box;
   margin: 0;
   border: none;
   display: flex;
