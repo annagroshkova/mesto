@@ -10,6 +10,7 @@
   position: absolute;
   top: 8px;
   right: 0;
+  outline: none;
   cursor: pointer;
   transition: opacity 0.3s ease-out;
 }

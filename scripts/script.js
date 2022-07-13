@@ -1,6 +1,7 @@
 const elements = document.querySelector('.elements');
 const cardContainer = document.querySelector('#card-container').content;
 
+const popupOverlayList = document.querySelectorAll('.popup');
 const popupEdit = document.querySelector('.popup_edit');
 const popupAdd = document.querySelector('.popup_add');
 const popupPreview = document.querySelector('.popup_image-preview');
@@ -74,6 +75,7 @@ function createCard(link, text) {
 function openPopup (popup) {
   popup.classList.add('popup_opened');
 }
+
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
 }
@@ -108,6 +110,26 @@ buttonClosePopupAdd.addEventListener('click', () => {
 
 buttonClosePopupPreview.addEventListener('click', () => {
   closePopup(buttonClosePopupPreview.closest('.popup_image-preview'));
+});
+
+document.addEventListener('keydown', (evt) => {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    if (popupOpened) {
+      closePopup(popupOpened);
+    }
+  }
+});
+
+popupOverlayList.forEach((popupOverlay) => {
+  popupOverlay.addEventListener('click', (evt) => {
+    if (!evt.target.classList.contains('popup')) return
+
+    const popupOpened = popupOverlay.closest('.popup_opened');
+    if (popupOpened) {
+      closePopup(popupOpened);
+    }
+  })
 });
 
 formEditElement.addEventListener('submit', formEditSubmitHandler);

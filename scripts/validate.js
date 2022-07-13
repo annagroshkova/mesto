@@ -11,7 +11,6 @@ function enableValidation(obj) {
   const formList = Array.from(document.querySelectorAll(obj.formSelector));
 
   formList.forEach((formEl) => {
-    console.log('you suck!', formEl)
     const inputList = Array.from(formEl.querySelectorAll(obj.inputSelector));
     const buttonSubmit = formEl.querySelector(obj.submitButtonSelector);
 
@@ -19,7 +18,6 @@ function enableValidation(obj) {
       evt.preventDefault();
     })
 
-    console.log('still suck')
     toggleButtonState(inputList, buttonSubmit);
 
     inputList.forEach((inputEl) => {
@@ -32,7 +30,6 @@ function enableValidation(obj) {
 
   function toggleButtonState(inputList, buttonSubmit) {
     if (hasInvalidInput(inputList)) {
-      console.log('Aaaaand suck!')
       buttonSubmit.classList.add(obj.inactiveButtonClass);
     } else {
       buttonSubmit.classList.remove(obj.inactiveButtonClass);
@@ -40,7 +37,6 @@ function enableValidation(obj) {
   }
 
   function showInputError(formEl, inputEl, errorMessage) {
-    console.log('still suck show')
     const errorEl = formEl.querySelector(`.${inputEl.id}-error`);
     inputEl.classList.add(obj.inputErrorClass);
     errorEl.textContent = errorMessage;
@@ -48,7 +44,6 @@ function enableValidation(obj) {
   }
 
   function hideInputError(formEl, inputEl) {
-    console.log('still suck hide')
     const errorEl = formEl.querySelector(`.${inputEl.id}-error`);
     inputEl.classList.remove(obj.inputErrorClass);
     errorEl.textContent = '';
@@ -64,7 +59,6 @@ function enableValidation(obj) {
   }
 
   function hasInvalidInput(inputList) {
-    console.log('huy');
     return inputList.some((inputEl) => {
       return !inputEl.validity.valid;
     })
