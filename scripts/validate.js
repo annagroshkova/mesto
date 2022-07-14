@@ -18,51 +18,53 @@ function enableValidation(obj) {
       evt.preventDefault();
     })
 
-    toggleButtonState(inputList, buttonSubmit);
+    toggleButtonState(obj, inputList, buttonSubmit);
 
     inputList.forEach((inputEl) => {
       inputEl.addEventListener('input', function () {
-        checkInputValidity(formEl, inputEl);
-        toggleButtonState(inputList, buttonSubmit);
+        checkInputValidity(obj, formEl, inputEl);
+        toggleButtonState(obj, inputList, buttonSubmit);
       });
     });
   })
+}
 
-  function toggleButtonState(inputList, buttonSubmit) {
-    if (hasInvalidInput(inputList)) {
-      buttonSubmit.classList.add(obj.inactiveButtonClass);
-    } else {
-      buttonSubmit.classList.remove(obj.inactiveButtonClass);
-    }
+function toggleButtonState(obj, inputList, buttonSubmit) {
+  if (hasInvalidInput(inputList)) {
+    buttonSubmit.classList.add(obj.inactiveButtonClass);
+    buttonSubmit.setAttribute('disabled', true);
+  } else {
+    buttonSubmit.classList.remove(obj.inactiveButtonClass);
+    buttonSubmit.removeAttribute('disabled');
   }
+}
 
-  function showInputError(formEl, inputEl, errorMessage) {
-    const errorEl = formEl.querySelector(`.${inputEl.id}-error`);
-    inputEl.classList.add(obj.inputErrorClass);
-    errorEl.textContent = errorMessage;
-    errorEl.classList.add(obj.errorClass);
-  }
+function showInputError(obj, formEl, inputEl, errorMessage) {
+  const errorEl = formEl.querySelector(`.${inputEl.id}-error`);
+  inputEl.classList.add(obj.inputErrorClass);
+  errorEl.textContent = errorMessage;
+  errorEl.classList.add(obj.errorClass);
+}
 
-  function hideInputError(formEl, inputEl) {
-    const errorEl = formEl.querySelector(`.${inputEl.id}-error`);
-    inputEl.classList.remove(obj.inputErrorClass);
-    errorEl.textContent = '';
-    errorEl.classList.remove(obj.errorClass);
-  }
+function hideInputError(obj, formEl, inputEl) {
+  const errorEl = formEl.querySelector(`.${inputEl.id}-error`);
+  inputEl.classList.remove(obj.inputErrorClass);
+  errorEl.textContent = '';
+  errorEl.classList.remove(obj.errorClass);
+}
 
-  function checkInputValidity(formEl, inputEl) {
-    if (!inputEl.validity.valid) {
-      showInputError(formEl, inputEl, inputEl.validationMessage);
-    } else {
-      hideInputError(formEl, inputEl);
-    }
+function checkInputValidity(obj, formEl, inputEl) {
+  if (!inputEl.validity.valid) {
+    showInputError(obj, formEl, inputEl, inputEl.validationMessage);
+  } else {
+    hideInputError(obj, formEl, inputEl);
   }
+}
 
-  function hasInvalidInput(inputList) {
-    return inputList.some((inputEl) => {
-      return !inputEl.validity.valid;
-    })
-  }
+function hasInvalidInput(inputList) {
+  return inputList.some((inputEl) => {
+    return !inputEl.validity.valid;
+  })
 }
 
 
