@@ -1,6 +1,7 @@
 .popup__inner-container {
-  max-height: 300px;
-  width: 240px;
+  display: flex;
+  max-width: 80vw;
+  max-height: 80vh;
   overflow: hidden;
 }
 

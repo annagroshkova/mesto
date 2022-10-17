@@ -1,11 +1,6 @@
 .popup__image {
-  width: 240px;
+  width: 100%;
+  object-fit: contain;
 }
 
 
-@media screen and (min-width: 880px) {
-  .popup__image {
-    height: 540px;
-    width: auto;
-  }
-}
