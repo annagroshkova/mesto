@@ -7,8 +7,7 @@
 
 @media screen and (min-width: 880px) {
   .popup__inner-container {
-    height: 540px;
-    max-height: 540px;
+    height: 490px;
     width: auto;
     max-width: 816px;
   }
