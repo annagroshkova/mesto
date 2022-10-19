@@ -26,8 +26,6 @@ const profileJob = document.querySelector('.profile__description');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_description');
 
-const inputs = document.querySelectorAll('.popup__input');
-
 initialCards.forEach(function(item) {
   const initialCard = createCard(item.link, item.name);
   elements.append(initialCard);
@@ -83,8 +81,9 @@ function openPopup (popup) {
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupEscape);
-  inputs.forEach((item) => {
-    item.value = ''
+
+  popup.querySelectorAll('.popup__input').forEach(input => {
+    input.value = ''
   })
 }
 
