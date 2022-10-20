@@ -81,10 +81,6 @@ function openPopup (popup) {
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupEscape);
-
-  popup.querySelectorAll('.popup__input').forEach(input => {
-    input.value = ''
-  })
 }
 
 function closePopupEscape (evt) {
@@ -107,12 +103,14 @@ function formEditSubmitHandler (evt) {
 
 
 buttonEdit.addEventListener('click', () => {
-  openPopup(popupEdit);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  openPopup(popupEdit);
 });
 
 buttonAdd.addEventListener('click', () => {
+  imageInput.value = ''
+  placeInput.value = ''
 openPopup(popupAdd)
 });
 
