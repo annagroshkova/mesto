@@ -1,3 +1,7 @@
+import {Card} from './Card.js'
+import {initialCards} from './initialCards.js'
+import {} from './validate.js'
+
 const elements = document.querySelector('.elements');
 const cardContainer = document.querySelector('#card-container').content;
 
