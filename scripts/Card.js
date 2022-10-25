@@ -1,3 +1,6 @@
+import {openPopup, popupImage, popupPreview, popupUndertext} from "./index.js";
+
+
 export class Card {
   constructor(templateSelector, link, text) {
     this._templateSelector = templateSelector;

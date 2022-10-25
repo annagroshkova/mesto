@@ -1,14 +1,40 @@
 import {Card} from './Card.js'
-import {initialCards} from './initialCards.js'
-import {} from './validate.js'
+import {FormValidator} from './FormValidator.js'
+
+const initialCards = [
+  {
+    name: 'Стокгольм',
+    link: 'images/stockholm.jpg'
+  },
+  {
+    name: 'Мальмё',
+    link: 'images/malmo-4208473.jpg'
+  },
+  {
+    name: 'Гётеборг',
+    link: 'images/gothenburg.jpg'
+  },
+  {
+    name: 'Эресуннский мост',
+    link: 'images/oresund_bridge.jpg'
+  },
+  {
+    name: 'Лапландия',
+    link: 'images/lappland.jpg'
+  },
+  {
+    name: 'Остров Готланд',
+    link: 'images/gotland.jpg'
+  }
+];
+
 
 const elements = document.querySelector('.elements');
-const cardContainer = document.querySelector('#card-container').content;
 
 const popupOverlayList = document.querySelectorAll('.popup');
 const popupEdit = document.querySelector('.popup_edit');
 const popupAdd = document.querySelector('.popup_add');
-const popupPreview = document.querySelector('.popup_image-preview');
+export const popupPreview = document.querySelector('.popup_image-preview');
 
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -17,8 +43,8 @@ const buttonClosePopupEdit = popupEdit.querySelector('.popup__close-button');
 const buttonClosePopupAdd = popupAdd.querySelector('.popup__close-button');
 const buttonClosePopupPreview = popupPreview.querySelector('.popup__close-button');
 
-const popupImage = popupPreview.querySelector('.popup__image');
-const popupUndertext = popupPreview.querySelector('.popup__undertext');
+export const popupImage = popupPreview.querySelector('.popup__image');
+export const popupUndertext = popupPreview.querySelector('.popup__undertext');
 
 const formAddElement = document.querySelector('.popup__form_add');
 const imageInput = document.querySelector('.popup__input_type_link');
@@ -30,53 +56,40 @@ const profileJob = document.querySelector('.profile__description');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_description');
 
+const validationObject = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+};
+
 initialCards.forEach(function(item) {
-  const initialCard = createCard(item.link, item.name);
-  elements.append(initialCard);
+  const initialCard = new Card('#card-container', item.link, item.name);
+  const initialCardElement = initialCard.getCard();
+  elements.append(initialCardElement);
 });
 
-function createCard(link, text) {
-  const card = cardContainer.querySelector('.element').cloneNode(true);
-  const cardImage = card.querySelector('.element__image');
-  const cardText = card.querySelector('.element__text');
-  const likeButton = card.querySelector('.element__like-button');
-  const deleteButton = card.querySelector('.element__trash-icon');
-  const imagePreview = card.querySelector('.element__image');
-
-  cardImage.src = link;
-  cardImage.alt = text;
-  cardText.textContent = text;
-
-  likeButton.addEventListener('click', () => {
-    likeButton.classList.toggle('element__like-button_active');
-  });
-
-  deleteButton.addEventListener('click', () => {
-    deleteButton.closest('.element').remove();
-  });
-
-  imagePreview.addEventListener('click', () => {
-
-    popupImage.src = link;
-    popupImage.alt = text;
-    popupUndertext.textContent = text;
-
-    openPopup(popupPreview);
-  });
-
-  return card;
-}
 
  function addNewCard (evt) {
    evt.preventDefault();
 
-   const newCard = createCard(imageInput.value, placeInput.value);
-   elements.prepend(newCard);
+   const newCard = new Card('#card-container', imageInput.value, placeInput.value);
+   elements.prepend(newCard.getCard());
 
    closePopup(popupAdd);
  }
 
-function openPopup (popup) {
+function enableFormsValidation() {
+   const formList = document.querySelectorAll('.popup__form');
+   formList.forEach((formElement) => {
+     const form = new FormValidator(validationObject, formElement);
+     form.enableValidation()
+  })
+}
+
+export function openPopup (popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEscape);
 
@@ -140,6 +153,8 @@ popupOverlayList.forEach((popupOverlay) => {
 
 formEditElement.addEventListener('submit', formEditSubmitHandler);
 formAddElement.addEventListener('submit', addNewCard);
+
+enableFormsValidation();
 
 
 
