@@ -1,22 +1,22 @@
 export class FormValidator {
   constructor(obj, formElement) {
     this._obj = obj;
-    this._formElement = formElement
+    this._formElement = formElement;
   }
 
   enableValidation() {
     this._inputList = Array.from(this._formElement.querySelectorAll(this._obj.inputSelector));
     this._buttonSubmit = this._formElement.querySelector(this._obj.submitButtonSelector);
 
-    this._formElement.addEventListener('submit', (evt) => {
+    this._formElement.addEventListener('submit', evt => {
       evt.preventDefault();
-    })
+    });
 
     this._toggleButtonState();
 
-    this._inputList.forEach((inputEl) => {
+    this._inputList.forEach(inputEl => {
       inputEl.addEventListener('input', () => {
-        this._inputCheck(inputEl)
+        this._inputCheck(inputEl);
       });
     });
   }
@@ -54,19 +54,13 @@ export class FormValidator {
   }
 
   _inputCheck(inputEl) {
-      this._checkInputValidity(inputEl);
-      this._toggleButtonState();
+    this._checkInputValidity(inputEl);
+    this._toggleButtonState();
   }
 
   _hasInvalidInput() {
-    return this._inputList.some((inputEl) => {
+    return this._inputList.some(inputEl => {
       return !inputEl.validity.valid;
-    })
+    });
   }
 }
-
-
-
-
-
-

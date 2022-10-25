@@ -6,7 +6,7 @@
   right: 20px;
   z-index: 1;
   background-color: rgba(255, 255, 255, 0);
-  background-image: url("../../../images/trash-bin.svg");
+  background-image: url('../../../images/trash-bin.svg');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -16,5 +16,5 @@
 }
 
 .element__trash-icon:hover {
-  opacity: .6;
+  opacity: 0.6;
 }

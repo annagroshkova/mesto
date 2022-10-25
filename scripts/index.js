@@ -1,33 +1,32 @@
-import {Card} from './Card.js'
-import {FormValidator} from './FormValidator.js'
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 const initialCards = [
   {
     name: 'Стокгольм',
-    link: 'images/stockholm.jpg'
+    link: 'images/stockholm.jpg',
   },
   {
     name: 'Мальмё',
-    link: 'images/malmo-4208473.jpg'
+    link: 'images/malmo-4208473.jpg',
   },
   {
     name: 'Гётеборг',
-    link: 'images/gothenburg.jpg'
+    link: 'images/gothenburg.jpg',
   },
   {
     name: 'Эресуннский мост',
-    link: 'images/oresund_bridge.jpg'
+    link: 'images/oresund_bridge.jpg',
   },
   {
     name: 'Лапландия',
-    link: 'images/lappland.jpg'
+    link: 'images/lappland.jpg',
   },
   {
     name: 'Остров Готланд',
-    link: 'images/gotland.jpg'
-  }
+    link: 'images/gotland.jpg',
+  },
 ];
-
 
 const elements = document.querySelector('.elements');
 
@@ -65,51 +64,49 @@ const validationObject = {
   errorClass: 'popup__error_visible',
 };
 
-initialCards.forEach(function(item) {
+initialCards.forEach(function (item) {
   const initialCard = new Card('#card-container', item.link, item.name);
   const initialCardElement = initialCard.getCard();
   elements.append(initialCardElement);
 });
 
+function addNewCard(evt) {
+  evt.preventDefault();
 
- function addNewCard (evt) {
-   evt.preventDefault();
+  const newCard = new Card('#card-container', imageInput.value, placeInput.value);
+  elements.prepend(newCard.getCard());
 
-   const newCard = new Card('#card-container', imageInput.value, placeInput.value);
-   elements.prepend(newCard.getCard());
-
-   closePopup(popupAdd);
- }
+  closePopup(popupAdd);
+}
 
 function enableFormsValidation() {
-   const formList = document.querySelectorAll('.popup__form');
-   formList.forEach((formElement) => {
-     const form = new FormValidator(validationObject, formElement);
-     form.enableValidation()
-  })
+  const formList = document.querySelectorAll('.popup__form');
+  formList.forEach(formElement => {
+    const form = new FormValidator(validationObject, formElement);
+    form.enableValidation();
+  });
 }
 
-export function openPopup (popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEscape);
-
 }
 
-function closePopup (popup) {
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupEscape);
 }
 
-function closePopupEscape (evt) {
+function closePopupEscape(evt) {
   if (evt.key === 'Escape') {
-   const popup = document.querySelector('.popup_opened');
-   if(popup) {
-     closePopup(popup)
-   }
+    const popup = document.querySelector('.popup_opened');
+    if (popup) {
+      closePopup(popup);
+    }
   }
 }
 
-function formEditSubmitHandler (evt) {
+function formEditSubmitHandler(evt) {
   evt.preventDefault();
 
   profileName.textContent = nameInput.value;
@@ -118,7 +115,6 @@ function formEditSubmitHandler (evt) {
   closePopup(popupEdit);
 }
 
-
 buttonEdit.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
@@ -126,9 +122,9 @@ buttonEdit.addEventListener('click', () => {
 });
 
 buttonAdd.addEventListener('click', () => {
-  imageInput.value = ''
-  placeInput.value = ''
-openPopup(popupAdd)
+  imageInput.value = '';
+  placeInput.value = '';
+  openPopup(popupAdd);
 });
 
 buttonClosePopupEdit.addEventListener('click', () => {
@@ -143,8 +139,8 @@ buttonClosePopupPreview.addEventListener('click', () => {
   closePopup(popupPreview);
 });
 
-popupOverlayList.forEach((popupOverlay) => {
-  popupOverlay.addEventListener('click', (evt) => {
+popupOverlayList.forEach(popupOverlay => {
+  popupOverlay.addEventListener('click', evt => {
     if (evt.target.classList.contains('popup')) {
       closePopup(popupOverlay);
     }
@@ -155,8 +151,3 @@ formEditElement.addEventListener('submit', formEditSubmitHandler);
 formAddElement.addEventListener('submit', addNewCard);
 
 enableFormsValidation();
-
-
-
-
-

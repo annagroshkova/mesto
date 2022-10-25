@@ -1,5 +1,4 @@
-import {openPopup, popupImage, popupPreview, popupUndertext} from "./index.js";
-
+import { openPopup, popupImage, popupPreview, popupUndertext } from './index.js';
 
 export class Card {
   constructor(templateSelector, link, text) {
@@ -9,8 +8,7 @@ export class Card {
 
     this._cardElement = document
       .querySelector(this._templateSelector)
-      .content
-      .querySelector('.element')
+      .content.querySelector('.element')
       .cloneNode(true);
 
     this._cardImage = this._cardElement.querySelector('.element__image');
@@ -24,11 +22,11 @@ export class Card {
     this._deleteButton = this._cardElement.querySelector('.element__trash-icon');
     this._imagePreview = this._cardElement.querySelector('.element__image');
 
-    this._setEventListeners()
+    this._setEventListeners();
   }
 
   getCard() {
-    return this._cardElement
+    return this._cardElement;
   }
 
   _setEventListeners() {
@@ -60,11 +58,3 @@ export class Card {
     openPopup(popupPreview);
   }
 }
-
-
-
-
-
-
-
-

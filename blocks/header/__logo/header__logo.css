@@ -7,10 +7,8 @@
 
 @media screen and (min-width: 918px) {
   .header__logo {
-   padding: 0 0 41px 0;
-   width: 142px;
-   height: 33px;
+    padding: 0 0 41px 0;
+    width: 142px;
+    height: 33px;
   }
 }
-
-

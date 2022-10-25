@@ -4,7 +4,7 @@
   background-color: rgba(0, 0, 0, 0);
   border: white 2px solid;
   border-radius: 2px;
-  background-image: url("../../../images/plus_add-button.svg");
+  background-image: url('../../../images/plus_add-button.svg');
   background-size: 16px;
   background-position: center;
   background-repeat: no-repeat;
@@ -15,7 +15,7 @@
 }
 
 .profile__add-button:hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 
 @media screen and (min-width: 918px) {

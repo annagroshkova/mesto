@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   margin: auto;
-  border-bottom: rgba(84, 84, 84, .7) 1px solid;
+  border-bottom: rgba(84, 84, 84, 0.7) 1px solid;
 }
 
 @media screen and (min-width: 918px) {

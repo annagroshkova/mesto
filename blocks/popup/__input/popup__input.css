@@ -1,7 +1,7 @@
 .popup__input {
   outline: none;
   border: none;
-  border-bottom: rgba(0, 0, 0, .2) 1px solid;
+  border-bottom: rgba(0, 0, 0, 0.2) 1px solid;
   padding: 8px 0;
   color: black;
   font-size: 14px;
@@ -10,7 +10,15 @@
   text-align: start;
 }
 
-.popup__input::-webkit-input-placeholder {color:rgba(0, 0, 0, .2);}
-.popup__input::-moz-placeholder          {color:rgba(0, 0, 0, .2);}
-.popup__input::-ms-input-placeholder     {color:rgba(0, 0, 0, .2);}
-.popup__input::placeholder               {color:rgba(0, 0, 0, .2);}
+.popup__input::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+.popup__input::-moz-placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+.popup__input::-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+.popup__input::placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}

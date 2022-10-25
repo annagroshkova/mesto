@@ -2,7 +2,7 @@
   width: 22px;
   height: 19px;
   background-color: rgba(255, 255, 255, 0);
-  background-image: url("../../../images/like_button.svg");
+  background-image: url('../../../images/like_button.svg');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -12,7 +12,5 @@
 }
 
 .element__like-button:hover {
-  opacity: .5;
+  opacity: 0.5;
 }
-
-
