@@ -1,10 +1,9 @@
-import { openPopup, popupImage, popupPreview, popupUndertext } from './index.js';
-
 export class Card {
-  constructor(templateSelector, link, text) {
+  constructor(templateSelector, link, text, handleCardClick) {
     this._templateSelector = templateSelector;
     this._link = link;
     this._text = text;
+    this._handleCardClick = handleCardClick;
 
     this._cardElement = document
       .querySelector(this._templateSelector)
@@ -38,7 +37,7 @@ export class Card {
     });
 
     this._cardImage.addEventListener('click', () => {
-      this._showImagePreview();
+      this._handleCardClick(this._text, this._link);
     });
   }
 
@@ -48,12 +47,5 @@ export class Card {
 
   _deleteCard() {
     this._deleteButton.closest('.element').remove();
-  }
-
-  _showImagePreview() {
-    popupImage.src = this._link;
-    popupImage.alt = this._text;
-    popupUndertext.textContent = this._text;
-    openPopup(popupPreview);
   }
 }

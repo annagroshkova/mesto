@@ -4,6 +4,13 @@ export class FormValidator {
     this._formElement = formElement;
   }
 
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach(inputEl => {
+      this._hideInputError(inputEl);
+    });
+  }
+
   enableValidation() {
     this._inputList = Array.from(this._formElement.querySelectorAll(this._obj.inputSelector));
     this._buttonSubmit = this._formElement.querySelector(this._obj.submitButtonSelector);
@@ -22,7 +29,7 @@ export class FormValidator {
   }
 
   _toggleButtonState() {
-    this._inputList.forEach((inputEl) => {
+    this._inputList.forEach(inputEl => {
       if (this._hasInvalidInput(inputEl) || inputEl.value === '') {
         this._buttonSubmit.classList.add(this._obj.inactiveButtonClass);
         this._buttonSubmit.setAttribute('disabled', 'true');
@@ -30,7 +37,7 @@ export class FormValidator {
         this._buttonSubmit.classList.remove(this._obj.inactiveButtonClass);
         this._buttonSubmit.removeAttribute('disabled');
       }
-    })
+    });
   }
 
   _showInputError(inputEl, errorMessage) {
