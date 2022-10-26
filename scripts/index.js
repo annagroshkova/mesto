@@ -28,7 +28,7 @@ const initialCards = [
   },
 ];
 
-const elements = document.querySelector('.elements');
+const elementsContainer = document.querySelector('.elements');
 
 const popupOverlayList = document.querySelectorAll('.popup');
 const popupEdit = document.querySelector('.popup_edit');
@@ -65,16 +65,24 @@ const validationObject = {
 };
 
 initialCards.forEach(function (item) {
-  const initialCard = new Card('#card-container', item.link, item.name);
-  const initialCardElement = initialCard.getCard();
-  elements.append(initialCardElement);
+  const initialCard = createCard('#card-container', item.link, item.name);
+  elementsContainer.append(initialCard);
 });
+
+function createCard(templateSelector, link, text) {
+
+  const newCard = new Card(templateSelector, link, text);
+  return newCard.getCard();
+}
 
 function addNewCard(evt) {
   evt.preventDefault();
 
-  const newCard = new Card('#card-container', imageInput.value, placeInput.value);
-  elements.prepend(newCard.getCard());
+  elementsContainer.prepend(createCard('#card-container', imageInput.value, placeInput.value));
+
+  evt.target.reset();
+
+  enableFormsValidation();
 
   closePopup(popupAdd);
 }
@@ -122,8 +130,6 @@ buttonEdit.addEventListener('click', () => {
 });
 
 buttonAdd.addEventListener('click', () => {
-  imageInput.value = '';
-  placeInput.value = '';
   openPopup(popupAdd);
 });
 

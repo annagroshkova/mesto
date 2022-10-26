@@ -22,13 +22,15 @@ export class FormValidator {
   }
 
   _toggleButtonState() {
-    if (this._hasInvalidInput(this._inputList)) {
-      this._buttonSubmit.classList.add(this._obj.inactiveButtonClass);
-      this._buttonSubmit.setAttribute('disabled', 'true');
-    } else {
-      this._buttonSubmit.classList.remove(this._obj.inactiveButtonClass);
-      this._buttonSubmit.removeAttribute('disabled');
-    }
+    this._inputList.forEach((inputEl) => {
+      if (this._hasInvalidInput(inputEl) || inputEl.value === '') {
+        this._buttonSubmit.classList.add(this._obj.inactiveButtonClass);
+        this._buttonSubmit.setAttribute('disabled', 'true');
+      } else {
+        this._buttonSubmit.classList.remove(this._obj.inactiveButtonClass);
+        this._buttonSubmit.removeAttribute('disabled');
+      }
+    })
   }
 
   _showInputError(inputEl, errorMessage) {

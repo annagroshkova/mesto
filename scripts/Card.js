@@ -20,7 +20,6 @@ export class Card {
 
     this._likeButton = this._cardElement.querySelector('.element__like-button');
     this._deleteButton = this._cardElement.querySelector('.element__trash-icon');
-    this._imagePreview = this._cardElement.querySelector('.element__image');
 
     this._setEventListeners();
   }
@@ -38,7 +37,7 @@ export class Card {
       this._deleteCard();
     });
 
-    this._imagePreview.addEventListener('click', () => {
+    this._cardImage.addEventListener('click', () => {
       this._showImagePreview();
     });
   }
