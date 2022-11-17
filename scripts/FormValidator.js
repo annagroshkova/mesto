@@ -2,6 +2,7 @@ export class FormValidator {
   constructor(obj, formElement) {
     this._obj = obj;
     this._formElement = formElement;
+    this.enableValidation()
   }
 
   resetValidation() {

@@ -41,8 +41,9 @@
               class="popup__input popup__input_type_name"
               type="text"
               id="name"
+              name="name"
               placeholder="Имя"
-              value="Жак-Ив Кусто"
+              value=""
               minlength="2"
               maxlength="40"
               required
@@ -51,14 +52,15 @@
             <input
               class="popup__input popup__input_type_description"
               type="text"
-              id="about-yourself"
+              id="about"
+              name="about"
               placeholder="О себе"
-              value="Исследователь океана"
+              value=""
               minlength="2"
               maxlength="200"
               required
             />
-            <span class="popup__error about-yourself-error"></span>
+            <span class="popup__error about-error"></span>
           </fieldset>
           <button class="popup__submit-button" type="submit" disabled>Сохранить</button>
         </form>
@@ -75,6 +77,7 @@
               class="popup__input popup__input_type_place"
               type="text"
               id="place-name"
+              name="place-name"
               placeholder="Название"
               value=""
               minlength="2"
@@ -86,6 +89,7 @@
               class="popup__input popup__input_type_link"
               type="url"
               id="image-link"
+              name="image-link"
               placeholder="Ссылка на картинку"
               value=""
               required
