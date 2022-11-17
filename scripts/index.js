@@ -2,6 +2,7 @@ import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import {PopupWithImage} from "./PopupWithImage.js";
 import {PopupWithForm} from "./PopupWithForm.js";
+import {UserInfo} from "./UserInfo.js";
 
 const initialCards = [
   {
@@ -39,6 +40,8 @@ const validationObject = {
   errorClass: 'popup__error_visible',
 };
 
+const userInfo = new UserInfo('.profile__name-text', '.profile__description')
+
 const elementsContainer = document.querySelector('.elements');
 const formEditElement = document.forms['profile-form'];
 const formAddElement = document.forms['card-form'];
@@ -51,8 +54,6 @@ const popupPreview = new PopupWithImage('.popup_image-preview');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 
-const profileName = document.querySelector('.profile__name-text');
-const profileJob = document.querySelector('.profile__description');
 
 
 initialCards.forEach(function (item) {
@@ -74,16 +75,11 @@ function handleCardClick(text, link) {
 }
 
 function formEditSubmitHandler(inputValues) {
-
-  profileName.textContent = inputValues.name;
-  profileJob.textContent = inputValues.about;
+  userInfo.setUserInfo(inputValues)
 }
 
 buttonEdit.addEventListener('click', () => {
-  popupEdit.open({
-    name: profileName.textContent,
-    about: profileJob.textContent,
-  });
+  popupEdit.open(userInfo.getUserInfo());
 });
 
 buttonAdd.addEventListener('click', () => {
