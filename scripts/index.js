@@ -1,8 +1,9 @@
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import {PopupWithImage} from "./PopupWithImage.js";
-import {PopupWithForm} from "./PopupWithForm.js";
-import {UserInfo} from "./UserInfo.js";
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import {PopupWithImage} from "../components/PopupWithImage.js";
+import {PopupWithForm} from "../components/PopupWithForm.js";
+import {UserInfo} from "../components/UserInfo.js";
+import {Section} from "../components/Section.js";
 
 const initialCards = [
   {
@@ -29,7 +30,7 @@ const initialCards = [
     name: 'Остров Готланд',
     link: 'images/gotland.jpg',
   },
-];
+].reverse();
 
 const validationObject = {
   formSelector: '.popup__form',
@@ -40,9 +41,17 @@ const validationObject = {
   errorClass: 'popup__error_visible',
 };
 
+const cardsSection = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const cardElement = createCard('#card-container', item.link, item.name);
+    cardsSection.addItem(cardElement)
+  }
+}, '.elements')
+cardsSection.renderItems()
+
 const userInfo = new UserInfo('.profile__name-text', '.profile__description')
 
-const elementsContainer = document.querySelector('.elements');
 const formEditElement = document.forms['profile-form'];
 const formAddElement = document.forms['card-form'];
 
@@ -54,20 +63,13 @@ const popupPreview = new PopupWithImage('.popup_image-preview');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 
-
-
-initialCards.forEach(function (item) {
-  const initialCard = createCard('#card-container', item.link, item.name);
-  elementsContainer.append(initialCard);
-});
-
 function createCard(templateSelector, link, text) {
   const newCard = new Card(templateSelector, link, text, handleCardClick);
   return newCard.getCard();
 }
 
 function addNewCard(formProps) {
-  elementsContainer.prepend(createCard('#card-container', formProps['image-link'], formProps['place-name']));
+  cardsSection.addItem(createCard('#card-container', formProps['image-link'], formProps['place-name']));
 }
 
 function handleCardClick(text, link) {
