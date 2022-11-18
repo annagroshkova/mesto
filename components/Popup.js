@@ -17,18 +17,18 @@ export class Popup {
   setEventListeners() {
     this._closeBtn.addEventListener('click', () => this.close());
 
-    this._popup.addEventListener('click', (evt) => {
+    this._popup.addEventListener('click', evt => {
       if (evt.target.classList.contains('popup')) {
-        this.close()
+        this.close();
       }
-    })
+    });
 
-    document.addEventListener('keydown', (evt) => this._handleEscClose(evt));
+    document.addEventListener('keydown', evt => this._handleEscClose(evt));
   }
 
   _handleEscClose(evt) {
     if (evt.key === 'Escape') {
-      this.close()
+      this.close();
     }
   }
 }
