@@ -4,31 +4,32 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Section } from '../components/Section.js';
+import '../pages/index.css'
 
 const initialCards = [
   {
     name: 'Стокгольм',
-    link: 'images/stockholm.jpg',
+    link: require('../images/stockholm.jpg'),
   },
   {
     name: 'Мальмё',
-    link: 'images/malmo-4208473.jpg',
+    link: require('../images/malmo-4208473.jpg'),
   },
   {
     name: 'Гётеборг',
-    link: 'images/gothenburg.jpg',
+    link: require('../images/gothenburg.jpg'),
   },
   {
     name: 'Эресуннский мост',
-    link: 'images/oresund_bridge.jpg',
+    link: require('../images/oresund_bridge.jpg'),
   },
   {
     name: 'Лапландия',
-    link: 'images/lappland.jpg',
+    link: require('../images/lappland.jpg'),
   },
   {
     name: 'Остров Готланд',
-    link: 'images/gotland.jpg',
+    link: require('../images/gotland.jpg'),
   },
 ].reverse();
 
