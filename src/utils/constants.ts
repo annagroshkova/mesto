@@ -1,3 +1,17 @@
+export interface UserProps {
+  name: string;
+  about: string;
+}
+
+export interface ValidationOptions {
+  formSelector: string;
+  inputSelector: string;
+  submitButtonSelector: string;
+  inactiveButtonClass: string;
+  inputErrorClass: string;
+  errorClass: string;
+}
+
 export const initialCards = [
   {
     name: 'Стокгольм',
@@ -25,7 +39,7 @@ export const initialCards = [
   },
 ].reverse();
 
-export const validationObject = {
+export const validationObject: ValidationOptions = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit-button',
@@ -34,5 +48,5 @@ export const validationObject = {
   errorClass: 'popup__error_visible',
 };
 
-export const buttonEdit = document.querySelector('.profile__edit-button');
-export const buttonAdd = document.querySelector('.profile__add-button');
+export const buttonEdit = document.querySelector<HTMLButtonElement>('.profile__edit-button')!;
+export const buttonAdd = document.querySelector<HTMLButtonElement>('.profile__add-button')!;

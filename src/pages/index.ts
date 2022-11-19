@@ -1,10 +1,10 @@
-import { Card } from '../components/Card.js';
-import { FormValidator } from '../components/FormValidator.js';
-import { PopupWithImage } from '../components/PopupWithImage.js';
-import { PopupWithForm } from '../components/PopupWithForm.js';
-import { UserInfo } from '../components/UserInfo.js';
-import { Section } from '../components/Section.js';
-import { buttonAdd, buttonEdit, initialCards, validationObject } from '../utils/constants.js';
+import { Card } from '../components/Card';
+import { FormValidator } from '../components/FormValidator';
+import { PopupWithImage } from '../components/PopupWithImage';
+import { PopupWithForm } from '../components/PopupWithForm';
+import { UserInfo } from '../components/UserInfo';
+import { Section } from '../components/Section';
+import { buttonAdd, buttonEdit, initialCards, validationObject } from '../utils/constants';
 import './index.css';
 
 const cardsSection = new Section(
@@ -21,8 +21,8 @@ cardsSection.renderItems();
 
 const userInfo = new UserInfo('.profile__name-text', '.profile__description');
 
-const formEditElement = document.forms['profile-form'];
-const formAddElement = document.forms['card-form'];
+const formEditElement = document.forms['profile-form' as any]!;
+const formAddElement = document.forms['card-form' as any]!;
 
 const popupEdit = new PopupWithForm(
   '.popup_edit',
@@ -37,23 +37,23 @@ const popupAdd = new PopupWithForm(
 
 const popupPreview = new PopupWithImage('.popup_image-preview');
 
-function createCard(templateSelector, link, text) {
+function createCard(templateSelector: string, link: string, text: string): HTMLElement {
   const newCard = new Card(templateSelector, link, text, handleCardClick);
   return newCard.getCard();
 }
 
-function addNewCard(formProps) {
+function addNewCard(formProps: Record<any, string>): void {
   cardsSection.addItem(
-    createCard('#card-container', formProps['image-link'], formProps['place-name']),
+    createCard('#card-container', formProps['image-link']!, formProps['place-name']!),
   );
 }
 
-function handleCardClick(text, link) {
+function handleCardClick(text: string, link: string): void {
   popupPreview.open(text, link);
 }
 
-function formEditSubmitHandler(inputValues) {
-  userInfo.setUserInfo(inputValues);
+function formEditSubmitHandler(inputValues: Record<any, string>): void {
+  userInfo.setUserInfo(inputValues as any);
 }
 
 buttonEdit.addEventListener('click', () => {
