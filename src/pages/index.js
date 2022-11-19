@@ -4,43 +4,8 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Section } from '../components/Section.js';
-import './index.css'
-
-const initialCards = [
-  {
-    name: 'Стокгольм',
-    link: require('../images/stockholm.jpg'),
-  },
-  {
-    name: 'Мальмё',
-    link: require('../images/malmo-4208473.jpg'),
-  },
-  {
-    name: 'Гётеборг',
-    link: require('../images/gothenburg.jpg'),
-  },
-  {
-    name: 'Эресуннский мост',
-    link: require('../images/oresund_bridge.jpg'),
-  },
-  {
-    name: 'Лапландия',
-    link: require('../images/lappland.jpg'),
-  },
-  {
-    name: 'Остров Готланд',
-    link: require('../images/gotland.jpg'),
-  },
-].reverse();
-
-const validationObject = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
-};
+import { buttonAdd, buttonEdit, initialCards, validationObject } from '../utils/constants.js';
+import './index.css';
 
 const cardsSection = new Section(
   {
@@ -71,9 +36,6 @@ const popupAdd = new PopupWithForm(
 );
 
 const popupPreview = new PopupWithImage('.popup_image-preview');
-
-const buttonEdit = document.querySelector('.profile__edit-button');
-const buttonAdd = document.querySelector('.profile__add-button');
 
 function createCard(templateSelector, link, text) {
   const newCard = new Card(templateSelector, link, text, handleCardClick);

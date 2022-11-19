@@ -16,11 +16,15 @@ export class FormValidator {
     this._inputList = Array.from(this._formElement.querySelectorAll(this._obj.inputSelector));
     this._buttonSubmit = this._formElement.querySelector(this._obj.submitButtonSelector);
 
+    this._setEventListeners();
+
+    this._toggleButtonState();
+  }
+
+  _setEventListeners() {
     this._formElement.addEventListener('submit', evt => {
       evt.preventDefault();
     });
-
-    this._toggleButtonState();
 
     this._inputList.forEach(inputEl => {
       inputEl.addEventListener('input', () => {
