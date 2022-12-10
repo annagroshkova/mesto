@@ -12,7 +12,12 @@ export interface ValidationOptions {
   errorClass: string;
 }
 
-export const initialCards = [
+export interface CardObject {
+  name: string
+  link: string
+}
+
+export const initialCards: CardObject[] = [
   {
     name: 'Стокгольм',
     link: require('../images/stockholm.jpg'),

@@ -13,7 +13,9 @@
 
     <main class="main">
       <section class="profile">
-        <img class="profile__avatar" src=<%=require("./images/custo.jpg")%> alt="аватар" />
+        <div class="profile__image-container">
+          <img class="profile__avatar" src=<%=require("./images/custo.jpg")%> alt="аватар" />
+        </div>
         <div class="profile__info">
           <div class="profile__name">
             <h1 class="profile__name-text">Жак-Ив Кусто</h1>
@@ -117,7 +119,10 @@
         <button class="element__trash-icon" type="button" aria-label="Удалить"></button>
         <div class="element__info">
           <h2 class="element__text"></h2>
-          <button class="element__like-button" type="button" aria-label="Нравится"></button>
+          <div class="element__likes">
+            <button class="element__like-button" type="button" aria-label="Нравится"></button>
+            <p class="element__likes-amount">0</p>
+          </div>
         </div>
       </article>
     </template>
