@@ -2,7 +2,8 @@
   "name": "mesto",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack serve",
+    "dev-webpack": "webpack serve",
+    "dev-vite": "vite src --open",
     "tsc": "tsc",
     "eslint-all": "eslint-all",
     "stylelint-all": "stylelint-all",
@@ -28,6 +29,7 @@
     "postcss-loader": "^7.0.1",
     "prettier": "^2.7.1",
     "ts-loader": "^9.4.1",
+    "vite": "^4.0.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.1"
