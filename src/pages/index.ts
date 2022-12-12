@@ -4,20 +4,26 @@ import { PopupWithImage } from '../components/PopupWithImage';
 import { PopupWithForm } from '../components/PopupWithForm';
 import { UserInfo } from '../components/UserInfo';
 import { Section } from '../components/Section';
-import { buttonAdd, buttonEdit, initialCards, validationObject } from '../utils/constants';
+import { buttonAdd, buttonEdit, validationObject } from '../utils/constants';
 import './index.css';
+import {api} from "../components/Api";
 
-const cardsSection = new Section(
-  {
-    items: initialCards,
-    renderer: item => {
-      const cardElement = createCard('#card-container', item.link, item.name);
-      cardsSection.addItem(cardElement);
+let cardsSection: Section
+
+api.getInitialCards().then(cards => {
+  cardsSection = new Section(
+    {
+      items: cards,
+      renderer: item => {
+        const cardElement = createCard('#card-container', item.link, item.name);
+        cardsSection.addItem(cardElement);
+      },
     },
-  },
-  '.elements',
-);
-cardsSection.renderItems();
+    '.elements',
+  );
+  cardsSection.renderItems();
+})
+
 
 const userInfo = new UserInfo('.profile__name-text', '.profile__description');
 

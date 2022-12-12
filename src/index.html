@@ -104,7 +104,7 @@
     </div>
 
 
-    <div class="popup popup_change-avatar popup_opened">
+    <div class="popup popup_change-avatar">
       <div class="popup__container">
         <h3 class="popup__heading">Обновить аватар</h3>
         <form class="popup__form popup__form_change-avatar" name="avatar-form" novalidate>
@@ -122,6 +122,14 @@
           </fieldset>
           <button class="popup__submit-button" type="submit" disabled>Создать</button>
         </form>
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+      </div>
+    </div>
+
+    <div class="popup popup_opened popup_confirm-delete">
+      <div class="popup__container">
+        <h3 class="popup__heading">Вы уверены?</h3>
+        <button class="popup__confirm-button" type="button" disabled>Да</button>
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
       </div>
     </div>

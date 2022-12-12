@@ -17,32 +17,30 @@ export interface CardObject {
   link: string
 }
 
-export const initialCards: CardObject[] = [
-  {
-    name: 'Стокгольм',
-    link: require('../images/stockholm.jpg'),
-  },
-  {
-    name: 'Мальмё',
-    link: require('../images/malmo-4208473.jpg'),
-  },
-  {
-    name: 'Гётеборг',
-    link: require('../images/gothenburg.jpg'),
-  },
-  {
-    name: 'Эресуннский мост',
-    link: require('../images/oresund_bridge.jpg'),
-  },
-  {
-    name: 'Лапландия',
-    link: require('../images/lappland.jpg'),
-  },
-  {
-    name: 'Остров Готланд',
-    link: require('../images/gotland.jpg'),
-  },
-].reverse();
+export interface LikeObject {
+  about: string
+  avatar: string
+  cohort: string
+  name: string
+  _id: string
+}
+
+export interface OwnerObject {
+  about: string
+  avatar: string
+  cohort: string
+  name: string
+  _id: string
+}
+
+export interface CardObjectFromServer {
+  createdAt: string
+  likes: LikeObject[]
+  link: string
+  name: string
+  owner: OwnerObject
+  _id: string
+}
 
 export const validationObject: ValidationOptions = {
   formSelector: '.popup__form',
