@@ -1,9 +1,11 @@
+import { CardObject } from '../utils/constants';
+
 export class Card {
   constructor(
     templateSelector: string,
-    private _link: string,
-    private _text: string,
-    private _handleCardClick: (text: string, link: string) => any,
+    private _card: CardObject,
+    private _handleCardClick: (card: CardObject) => any,
+    private _handleCardDelete: (id: string, handleConfirm: () => any) => any,
   ) {
     this._cardElement = document
       .querySelector<HTMLTemplateElement>(templateSelector)!
@@ -11,11 +13,11 @@ export class Card {
       .cloneNode(true) as HTMLElement;
 
     this._cardImage = this._cardElement.querySelector('.element__image')!;
-    this._cardImage.src = this._link;
-    this._cardImage.alt = this._text;
+    this._cardImage.src = this._card.link;
+    this._cardImage.alt = this._card.name;
 
     this._cardText = this._cardElement.querySelector('.element__text')!;
-    this._cardText.textContent = this._text;
+    this._cardText.textContent = this._card.name;
 
     this._likeButton = this._cardElement.querySelector('.element__like-button')!;
     this._deleteButton = this._cardElement.querySelector('.element__trash-icon')!;
@@ -43,7 +45,7 @@ export class Card {
     });
 
     this._cardImage.addEventListener('click', () => {
-      this._handleCardClick(this._text, this._link);
+      this._handleCardClick(this._card);
     });
   }
 
@@ -52,6 +54,8 @@ export class Card {
   }
 
   private _deleteCard(): void {
-    this._cardElement.remove();
+    this._handleCardDelete(this._card._id, () => {
+      this._cardElement.remove();
+    });
   }
 }

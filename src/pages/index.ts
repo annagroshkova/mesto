@@ -4,26 +4,26 @@ import { PopupWithImage } from '../components/PopupWithImage';
 import { PopupWithForm } from '../components/PopupWithForm';
 import { UserInfo } from '../components/UserInfo';
 import { Section } from '../components/Section';
-import { buttonAdd, buttonEdit, validationObject } from '../utils/constants';
+import { buttonAdd, buttonEdit, CardObject, validationObject } from '../utils/constants';
 import './index.css';
-import {api} from "../components/Api";
+import { api } from '../components/Api';
+import { PopupWithConfirm } from '../components/PopupWithConfirm';
 
-let cardsSection: Section
+let cardsSection: Section;
 
 api.getInitialCards().then(cards => {
   cardsSection = new Section(
     {
       items: cards,
-      renderer: item => {
-        const cardElement = createCard('#card-container', item.link, item.name);
+      renderer: (card: CardObject) => {
+        const cardElement = createCard('#card-container', card);
         cardsSection.addItem(cardElement);
       },
     },
     '.elements',
   );
   cardsSection.renderItems();
-})
-
+});
 
 const userInfo = new UserInfo('.profile__name-text', '.profile__description');
 
@@ -43,19 +43,32 @@ const popupAdd = new PopupWithForm(
 
 const popupPreview = new PopupWithImage('.popup_image-preview');
 
-function createCard(templateSelector: string, link: string, text: string): HTMLElement {
-  const newCard = new Card(templateSelector, link, text, handleCardClick);
+const popupConfirm = new PopupWithConfirm('.popup__confirm');
+
+function createCard(templateSelector: string, card: CardObject): HTMLElement {
+  const newCard = new Card(templateSelector, card, handleCardClick, (id, handleConfirm) => {
+    popupConfirm.open(() => {
+      handleConfirm();
+
+      // todo: api delete
+    });
+  });
+
   return newCard.getCard();
 }
 
 function addNewCard(formProps: Record<any, string>): void {
   cardsSection.addItem(
-    createCard('#card-container', formProps['image-link']!, formProps['place-name']!),
+    createCard('#card-container', {
+      _id: 'todo',
+      name: formProps['place-name']!,
+      link: formProps['image-link']!,
+    } as CardObject),
   );
 }
 
-function handleCardClick(text: string, link: string): void {
-  popupPreview.open(text, link);
+function handleCardClick(card: CardObject): void {
+  popupPreview.open(card.name, card.link);
 }
 
 function formEditSubmitHandler(inputValues: Record<any, string>): void {

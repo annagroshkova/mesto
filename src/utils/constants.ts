@@ -12,34 +12,29 @@ export interface ValidationOptions {
   errorClass: string;
 }
 
-export interface CardObject {
-  name: string
-  link: string
-}
-
 export interface LikeObject {
-  about: string
-  avatar: string
-  cohort: string
-  name: string
-  _id: string
+  about: string;
+  avatar: string;
+  cohort: string;
+  name: string;
+  _id: string;
 }
 
 export interface OwnerObject {
-  about: string
-  avatar: string
-  cohort: string
-  name: string
-  _id: string
+  about: string;
+  avatar: string;
+  cohort: string;
+  name: string;
+  _id: string;
 }
 
-export interface CardObjectFromServer {
-  createdAt: string
-  likes: LikeObject[]
-  link: string
-  name: string
-  owner: OwnerObject
-  _id: string
+export interface CardObject {
+  createdAt: string;
+  likes: LikeObject[];
+  link: string;
+  name: string;
+  owner: OwnerObject;
+  _id: string;
 }
 
 export const validationObject: ValidationOptions = {
