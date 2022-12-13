@@ -1,8 +1,3 @@
-export interface UserProps {
-  name: string;
-  about: string;
-}
-
 export interface ValidationOptions {
   formSelector: string;
   inputSelector: string;
@@ -20,10 +15,10 @@ export interface LikeObject {
   _id: string;
 }
 
-export interface OwnerObject {
+export interface UserObject {
   about: string;
   avatar: string;
-  cohort: string;
+  cohort?: string;
   name: string;
   _id: string;
 }
@@ -33,7 +28,7 @@ export interface CardObject {
   likes: LikeObject[];
   link: string;
   name: string;
-  owner: OwnerObject;
+  owner: UserObject;
   _id: string;
 }
 

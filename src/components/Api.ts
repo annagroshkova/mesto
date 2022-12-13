@@ -1,22 +1,24 @@
-import { CardObject } from '../utils/constants';
+import { CardObject, UserObject } from '../utils/constants';
 
 class Api {
   constructor(
-    private options: {
+    private _options: {
       baseUrl: string;
       headers: any;
     },
-  ) {
-    // тело конструктора
-  }
+  ) {}
 
   getInitialCards(): Promise<CardObject[]> {
-    return fetch(`${this.options.baseUrl}/cards`, {
-      headers: this.options.headers,
-    }).then(res => res.json());
+    return fetch(`${this._options.baseUrl}/cards`, {
+      headers: this._options.headers,
+    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
 
-  // другие методы работы с API
+  getUserInfo(): Promise<UserObject> {
+    return fetch(`${this._options.baseUrl}/users/me`, {
+      headers: this._options.headers,
+    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
+  }
 }
 
 export const api = new Api({

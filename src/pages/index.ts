@@ -4,28 +4,18 @@ import { PopupWithImage } from '../components/PopupWithImage';
 import { PopupWithForm } from '../components/PopupWithForm';
 import { UserInfo } from '../components/UserInfo';
 import { Section } from '../components/Section';
-import { buttonAdd, buttonEdit, CardObject, validationObject } from '../utils/constants';
+import {
+  buttonAdd,
+  buttonEdit,
+  CardObject,
+  UserObject,
+  validationObject,
+} from '../utils/constants';
 import './index.css';
 import { api } from '../components/Api';
 import { PopupWithConfirm } from '../components/PopupWithConfirm';
 
-let cardsSection: Section;
-
-api.getInitialCards().then(cards => {
-  cardsSection = new Section(
-    {
-      items: cards,
-      renderer: (card: CardObject) => {
-        const cardElement = createCard('#card-container', card);
-        cardsSection.addItem(cardElement);
-      },
-    },
-    '.elements',
-  );
-  cardsSection.renderItems();
-});
-
-const userInfo = new UserInfo('.profile__name-text', '.profile__description');
+const userInfo = new UserInfo('.profile');
 
 const formEditElement = document.forms['profile-form' as any]!;
 const formAddElement = document.forms['card-form' as any]!;
@@ -44,6 +34,26 @@ const popupAdd = new PopupWithForm(
 const popupPreview = new PopupWithImage('.popup_image-preview');
 
 const popupConfirm = new PopupWithConfirm('.popup__confirm');
+
+let cardsSection: Section;
+
+api.getInitialCards().then(cards => {
+  cardsSection = new Section(
+    {
+      items: cards,
+      renderer: (card: CardObject) => {
+        const cardElement = createCard('#card-container', card);
+        cardsSection.addItem(cardElement);
+      },
+    },
+    '.elements',
+  );
+  cardsSection.renderItems();
+});
+
+api.getUserInfo().then(user => {
+  userInfo.setUserInfo(user);
+});
 
 function createCard(templateSelector: string, card: CardObject): HTMLElement {
   const newCard = new Card(templateSelector, card, handleCardClick, (id, handleConfirm) => {

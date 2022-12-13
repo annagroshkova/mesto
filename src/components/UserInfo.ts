@@ -1,24 +1,37 @@
-import { UserProps } from '../utils/constants';
+import { UserObject } from '../utils/constants';
 
 export class UserInfo {
-  constructor(nameSelector: string, aboutSelector: string) {
-    this._nameElement = document.querySelector(nameSelector)!;
-    this._aboutElement = document.querySelector(aboutSelector)!;
+  constructor(profileSelector: string) {
+    this._profileElement = document.querySelector(profileSelector)!;
+    this._nameElement = this._profileElement.querySelector('.profile__name-text')!;
+    this._aboutElement = this._profileElement.querySelector('.profile__description')!;
+    this._profileAvatar = this._profileElement.querySelector('.profile__avatar')!;
   }
 
+  private _profileElement: HTMLElement;
+  private _profileAvatar: HTMLImageElement;
   private _nameElement: HTMLElement;
   private _aboutElement: HTMLElement;
+  private _id?: string;
 
-  getUserInfo(): UserProps {
-    const userProps = {
+  getUserInfo(): UserObject {
+    const user: UserObject = {
       name: this._nameElement.textContent!,
       about: this._aboutElement.textContent!,
+      avatar: this._profileAvatar.src,
+      _id: this._id!,
     };
-    return userProps;
+    return user;
   }
 
-  setUserInfo(userProps: UserProps): void {
-    this._nameElement.textContent = userProps.name;
-    this._aboutElement.textContent = userProps.about;
+  setUserInfo(user: UserObject): void {
+    this._nameElement.textContent = user.name;
+    this._aboutElement.textContent = user.about;
+    if (user.avatar) {
+      this._profileAvatar.src = user.avatar;
+    }
+    if (user._id) {
+      this._id = user._id;
+    }
   }
 }
