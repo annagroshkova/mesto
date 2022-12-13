@@ -82,7 +82,8 @@ function handleCardClick(card: CardObject): void {
 }
 
 function formEditSubmitHandler(inputValues: Record<any, string>): void {
-  userInfo.setUserInfo(inputValues as any);
+  userInfo.setUserInfo(inputValues as any as UserObject);
+  void api.patchUserInfo(inputValues as any as UserObject)
 }
 
 buttonEdit.addEventListener('click', () => {

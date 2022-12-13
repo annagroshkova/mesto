@@ -43,7 +43,10 @@ export class PopupWithForm extends Popup {
 
   _setInputValues(formProps: Record<any, string>): void {
     Object.keys(formProps).forEach(key => {
-      this._form.querySelector<HTMLInputElement>(`input[name="${key}"]`)!.value = formProps[key]!;
+      const el = this._form.querySelector<HTMLInputElement>(`input[name="${key}"]`)
+      if (el) {
+        el.value = formProps[key]!;
+      }
     });
   }
 }

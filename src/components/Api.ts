@@ -19,6 +19,17 @@ class Api {
       headers: this._options.headers,
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
+
+  patchUserInfo(user: UserObject): Promise<void> {
+    return fetch(`${this._options.baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this._options.headers,
+      body: JSON.stringify({
+        name: user.name,
+        about: user.about
+      })
+    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
+  }
 }
 
 export const api = new Api({
