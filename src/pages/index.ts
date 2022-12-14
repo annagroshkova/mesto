@@ -17,12 +17,12 @@ import { PopupWithConfirm } from '../components/PopupWithConfirm';
 
 const formAvatarEditElement = document.forms['avatar-form' as any]!;
 
-const popupAvatar = new PopupWithForm(
+const popupAvatar = new PopupWithForm<{ avatar: string }>(
   '.popup_edit-avatar',
-  (formProps: Record<any, string>) => {
-    const { avatar } = formProps as { avatar: string };
+  form => {
+    const { avatar } = form;
     userInfo.setAvatar(avatar);
-    api.patchAvatar(avatar);
+    return api.patchAvatar(avatar);
   },
   new FormValidator(validationObject, formAvatarEditElement),
 );
@@ -36,13 +36,13 @@ const userInfo = new UserInfo('.profile', avatar => {
 const formEditElement = document.forms['profile-form' as any]!;
 const formAddElement = document.forms['card-form' as any]!;
 
-const popupEdit = new PopupWithForm(
+const popupEdit = new PopupWithForm<{ name: string; about: string }>(
   '.popup_edit',
   formEditSubmitHandler,
   new FormValidator(validationObject, formEditElement),
 );
 
-const popupAdd = new PopupWithForm(
+const popupAdd = new PopupWithForm<{ 'place-name': string; 'image-link': string }>(
   '.popup_add',
   addNewCard,
   new FormValidator(validationObject, formAddElement),
@@ -97,17 +97,14 @@ function createCard(templateSelector: string, card: CardObject): HTMLElement {
   return newCard.getCard();
 }
 
-function addNewCard(formProps: Record<any, string>): void {
-  const name = formProps['place-name']!;
-  const link = formProps['image-link']!;
-
-  api.postNewCard(name, link).then(card => {
+function addNewCard(form: { 'place-name': string; 'image-link': string }): Promise<void> {
+  return api.postNewCard(form['place-name'], form['image-link']).then(card => {
     cardsSection.addItem(createCard('#card-container', card));
   });
 }
 
-function formEditSubmitHandler(inputValues: {}): void {
-  api.patchUserInfo(inputValues as any as UserObject).then(user => {
+function formEditSubmitHandler(form: { name: string; about: string }): Promise<void> {
+  return api.patchUserInfo(form as UserObject).then(user => {
     userInfo.setUserInfo(user);
   });
 }

@@ -31,7 +31,7 @@ export class Card {
       this._likeButton.classList.add('element__like-button_active');
     }
 
-    if (_myId === _card.owner._id) {
+    if (_myId !== _card.owner._id) {
       this._deleteButton!.remove();
     }
 
