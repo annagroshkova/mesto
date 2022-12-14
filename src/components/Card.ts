@@ -4,8 +4,9 @@ export class Card {
   constructor(
     templateSelector: string,
     private _card: CardObject,
+    isMyOwn: boolean,
     private _handleCardClick: (card: CardObject) => any,
-    private _handleCardDelete: (id: string, handleConfirm: () => any) => any,
+    private _handleCardDelete: (cardId: string, handleConfirm: () => any) => any,
   ) {
     this._cardElement = document
       .querySelector<HTMLTemplateElement>(templateSelector)!
@@ -19,17 +20,25 @@ export class Card {
     this._cardText = this._cardElement.querySelector('.element__text')!;
     this._cardText.textContent = this._card.name;
 
+    this._cardLikes = this._cardElement.querySelector('.element__likes-amount')!;
+    this._cardLikes.textContent = this._card.likes.length.toString()!;
+
     this._likeButton = this._cardElement.querySelector('.element__like-button')!;
     this._deleteButton = this._cardElement.querySelector('.element__trash-icon')!;
+
+    if (!isMyOwn) {
+      this._deleteButton!.remove()
+    }
 
     this._setEventListeners();
   }
 
   private _cardElement: HTMLElement;
   private _cardImage: HTMLImageElement;
+  private _cardLikes: HTMLElement;
   private _cardText: HTMLImageElement;
   private _likeButton: HTMLButtonElement;
-  private _deleteButton: HTMLButtonElement;
+  private _deleteButton?: HTMLButtonElement;
 
   getCard(): HTMLElement {
     return this._cardElement;
@@ -40,9 +49,11 @@ export class Card {
       this._toggleLike();
     });
 
-    this._deleteButton.addEventListener('click', () => {
-      this._deleteCard();
-    });
+    if (this._deleteButton) {
+      this._deleteButton.addEventListener('click', () => {
+        this._deleteCard();
+      });
+    }
 
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._card);

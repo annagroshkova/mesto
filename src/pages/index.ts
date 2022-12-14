@@ -59,7 +59,7 @@ let cardsSection: Section;
 api.getInitialCards().then(cards => {
   cardsSection = new Section(
     {
-      items: cards,
+      items: cards.reverse(),
       renderer: (card: CardObject) => {
         const cardElement = createCard('#card-container', card);
         cardsSection.addItem(cardElement);
@@ -75,11 +75,13 @@ api.getUserInfo().then(user => {
 });
 
 function createCard(templateSelector: string, card: CardObject): HTMLElement {
-  const newCard = new Card(templateSelector, card, handleCardClick, (id, handleConfirm) => {
+  const isMyOwn = userInfo.getUserInfo()._id === card.owner._id
+
+  const newCard = new Card(templateSelector, card, isMyOwn, handleCardClick, (cardId, handleConfirm) => {
     popupConfirm.open(() => {
       handleConfirm();
 
-      // todo: api delete
+      void api.deleteCard(cardId)
     });
   });
 
@@ -87,22 +89,24 @@ function createCard(templateSelector: string, card: CardObject): HTMLElement {
 }
 
 function addNewCard(formProps: Record<any, string>): void {
-  cardsSection.addItem(
-    createCard('#card-container', {
-      _id: 'todo',
-      name: formProps['place-name']!,
-      link: formProps['image-link']!,
-    } as CardObject),
-  );
+  const name = formProps['place-name']!
+  const link = formProps['image-link']!
+
+  api.postNewCard(name, link).then(card => {
+    cardsSection.addItem(
+      createCard('#card-container', card),
+    );
+  })
 }
 
 function handleCardClick(card: CardObject): void {
   popupPreview.open(card.name, card.link);
 }
 
-function formEditSubmitHandler(inputValues: Record<any, string>): void {
-  userInfo.setUserInfo(inputValues as any as UserObject);
-  void api.patchUserInfo(inputValues as any as UserObject)
+function formEditSubmitHandler(inputValues: {}): void {
+  api.patchUserInfo(inputValues as any as UserObject).then(user => {
+    userInfo.setUserInfo(user);
+  })
 }
 
 buttonEdit.addEventListener('click', () => {
