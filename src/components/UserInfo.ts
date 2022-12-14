@@ -1,15 +1,13 @@
 import { UserObject } from '../utils/constants';
 
 export class UserInfo {
-  constructor(profileSelector: string,
-              private _handleAvatarEditClick: (avatar: string) => any,
-  ) {
+  constructor(profileSelector: string, private _handleAvatarEditClick: (avatar: string) => any) {
     this._profileElement = document.querySelector(profileSelector)!;
     this._nameElement = this._profileElement.querySelector('.profile__name-text')!;
     this._aboutElement = this._profileElement.querySelector('.profile__description')!;
     this._profileAvatar = this._profileElement.querySelector('.profile__avatar')!;
     this._editAvatarBtn = this._profileElement.querySelector('.profile__avatar-edit-button')!;
-    this._setEventListeners()
+    this._setEventListeners();
   }
 
   private _profileElement: HTMLElement;
@@ -46,7 +44,7 @@ export class UserInfo {
 
   _setEventListeners(): void {
     this._editAvatarBtn.addEventListener('click', () => {
-      this._handleAvatarEditClick(this._profileAvatar.src)
-    })
+      this._handleAvatarEditClick(this._profileAvatar.src);
+    });
   }
 }

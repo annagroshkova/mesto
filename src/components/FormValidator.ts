@@ -9,7 +9,6 @@ export class FormValidator {
   private _buttonSubmit!: HTMLButtonElement;
 
   enableValidation(): void {
-
     this._inputList = Array.from(this._formElement.querySelectorAll(this._obj.inputSelector));
     this._buttonSubmit = this._formElement.querySelector(this._obj.submitButtonSelector)!;
 

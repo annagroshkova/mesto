@@ -20,17 +20,17 @@ const formAvatarEditElement = document.forms['avatar-form' as any]!;
 const popupAvatar = new PopupWithForm(
   '.popup_edit-avatar',
   (formProps: Record<any, string>) => {
-    const { avatar } = formProps as { avatar: string }
+    const { avatar } = formProps as { avatar: string };
     userInfo.setAvatar(avatar);
     api.patchAvatar(avatar);
   },
   new FormValidator(validationObject, formAvatarEditElement),
-)
+);
 
-const userInfo = new UserInfo('.profile', (avatar) => {
+const userInfo = new UserInfo('.profile', avatar => {
   popupAvatar.open({
     avatar,
-  })
+  });
 });
 
 const formEditElement = document.forms['profile-form' as any]!;
@@ -47,8 +47,6 @@ const popupAdd = new PopupWithForm(
   addNewCard,
   new FormValidator(validationObject, formAddElement),
 );
-
-
 
 const popupPreview = new PopupWithImage('.popup_image-preview');
 
@@ -75,38 +73,43 @@ api.getUserInfo().then(user => {
 });
 
 function createCard(templateSelector: string, card: CardObject): HTMLElement {
-  const isMyOwn = userInfo.getUserInfo()._id === card.owner._id
+  const newCard = new Card(
+    templateSelector,
+    card,
+    userInfo.getUserInfo()._id,
+    () => {
+      popupPreview.open(card.name, card.link);
+    },
+    handleConfirm => {
+      popupConfirm.open(() => {
+        handleConfirm();
 
-  const newCard = new Card(templateSelector, card, isMyOwn, handleCardClick, (cardId, handleConfirm) => {
-    popupConfirm.open(() => {
-      handleConfirm();
-
-      void api.deleteCard(cardId)
-    });
-  });
+        void api.deleteCard(card._id);
+      });
+    },
+    (liked, handleLikes) => {
+      api.likeCard(card._id, liked).then(card => {
+        handleLikes(card.likes);
+      });
+    },
+  );
 
   return newCard.getCard();
 }
 
 function addNewCard(formProps: Record<any, string>): void {
-  const name = formProps['place-name']!
-  const link = formProps['image-link']!
+  const name = formProps['place-name']!;
+  const link = formProps['image-link']!;
 
   api.postNewCard(name, link).then(card => {
-    cardsSection.addItem(
-      createCard('#card-container', card),
-    );
-  })
-}
-
-function handleCardClick(card: CardObject): void {
-  popupPreview.open(card.name, card.link);
+    cardsSection.addItem(createCard('#card-container', card));
+  });
 }
 
 function formEditSubmitHandler(inputValues: {}): void {
   api.patchUserInfo(inputValues as any as UserObject).then(user => {
     userInfo.setUserInfo(user);
-  })
+  });
 }
 
 buttonEdit.addEventListener('click', () => {

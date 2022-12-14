@@ -7,14 +7,6 @@ export interface ValidationOptions {
   errorClass: string;
 }
 
-export interface LikeObject {
-  about: string;
-  avatar: string;
-  cohort: string;
-  name: string;
-  _id: string;
-}
-
 export interface UserObject {
   about: string;
   avatar: string;
@@ -25,7 +17,7 @@ export interface UserObject {
 
 export interface CardObject {
   createdAt: string;
-  likes: LikeObject[];
+  likes: UserObject[];
   link: string;
   name: string;
   owner: UserObject;

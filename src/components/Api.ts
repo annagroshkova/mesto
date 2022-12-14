@@ -26,8 +26,8 @@ class Api {
       headers: this._options.headers,
       body: JSON.stringify({
         name: user.name,
-        about: user.about
-      })
+        about: user.about,
+      }),
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
 
@@ -37,7 +37,7 @@ class Api {
       headers: this._options.headers,
       body: JSON.stringify({
         avatar,
-      })
+      }),
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
 
@@ -46,14 +46,22 @@ class Api {
       method: 'POST',
       headers: this._options.headers,
       body: JSON.stringify({
-        name, link
-      })
+        name,
+        link,
+      }),
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
 
   deleteCard(cardId: string): Promise<void> {
     return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
+      headers: this._options.headers,
+    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
+  }
+
+  likeCard(cardId: string, liked: boolean): Promise<CardObject> {
+    return fetch(`${this._options.baseUrl}/cards/${cardId}/likes`, {
+      method: liked ? 'PUT' : 'DELETE',
       headers: this._options.headers,
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
