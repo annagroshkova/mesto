@@ -30,6 +30,16 @@ class Api {
       })
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
+
+  patchAvatar(avatar: string): Promise<void> {
+    return fetch(`${this._options.baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._options.headers,
+      body: JSON.stringify({
+        avatar,
+      })
+    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
+  }
 }
 
 export const api = new Api({

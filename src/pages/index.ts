@@ -15,7 +15,23 @@ import './index.css';
 import { api } from '../components/Api';
 import { PopupWithConfirm } from '../components/PopupWithConfirm';
 
-const userInfo = new UserInfo('.profile');
+const formAvatarEditElement = document.forms['avatar-form' as any]!;
+
+const popupAvatar = new PopupWithForm(
+  '.popup_edit-avatar',
+  (formProps: Record<any, string>) => {
+    const { avatar } = formProps as { avatar: string }
+    userInfo.setAvatar(avatar);
+    api.patchAvatar(avatar);
+  },
+  new FormValidator(validationObject, formAvatarEditElement),
+)
+
+const userInfo = new UserInfo('.profile', (avatar) => {
+  popupAvatar.open({
+    avatar,
+  })
+});
 
 const formEditElement = document.forms['profile-form' as any]!;
 const formAddElement = document.forms['card-form' as any]!;
@@ -25,11 +41,14 @@ const popupEdit = new PopupWithForm(
   formEditSubmitHandler,
   new FormValidator(validationObject, formEditElement),
 );
+
 const popupAdd = new PopupWithForm(
   '.popup_add',
   addNewCard,
   new FormValidator(validationObject, formAddElement),
 );
+
+
 
 const popupPreview = new PopupWithImage('.popup_image-preview');
 
