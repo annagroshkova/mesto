@@ -49,7 +49,7 @@ const popupAdd = new PopupWithForm(
   new FormValidator(validationObject, formAddElement),
 );
 const popupPreview = new PopupWithImage('.popup_image-preview');
-const popupConfirm = new PopupWithConfirm('.popup__confirm');
+const popupConfirm = new PopupWithConfirm('.popup_confirm');
 
 let cardsSection;
 api
