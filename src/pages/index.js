@@ -52,27 +52,25 @@ const popupPreview = new PopupWithImage('.popup_image-preview');
 const popupConfirm = new PopupWithConfirm('.popup__confirm');
 
 let cardsSection;
-api.getInitialCards().then(cards => {
-  cardsSection = new Section(
-    {
-      items: cards.reverse(),
-      renderer: card => {
-        const cardElement = createCard('#card-container', card);
-        cardsSection.addItem(cardElement);
-      },
-    },
-    '.elements',
-  );
-  cardsSection.renderItems();
-}).catch((err) => {
-  console.log(err);
-});
-
 api.getUserInfo().then(user => {
   userInfo.setUserInfo(user);
-}).catch((err) => {
-  console.log(err);
-});
+})
+  .then(() => api.getInitialCards())
+  .then(cards => {
+    cardsSection = new Section(
+      {
+        items: cards.reverse(),
+        renderer: card => {
+          const cardElement = createCard('#card-container', card);
+          cardsSection.addItem(cardElement);
+        },
+      },
+      '.elements',
+    );
+    cardsSection.renderItems();
+  }).catch((err) => {
+    console.log(err);
+  });
 
 function createCard(templateSelector, card) {
   const newCard = new Card(
