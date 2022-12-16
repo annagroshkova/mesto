@@ -52,9 +52,11 @@ const popupPreview = new PopupWithImage('.popup_image-preview');
 const popupConfirm = new PopupWithConfirm('.popup__confirm');
 
 let cardsSection;
-api.getUserInfo().then(user => {
-  userInfo.setUserInfo(user);
-})
+api
+  .getUserInfo()
+  .then(user => {
+    userInfo.setUserInfo(user);
+  })
   .then(() => api.getInitialCards())
   .then(cards => {
     cardsSection = new Section(
@@ -68,7 +70,8 @@ api.getUserInfo().then(user => {
       '.elements',
     );
     cardsSection.renderItems();
-  }).catch((err) => {
+  })
+  .catch(err => {
     console.log(err);
   });
 
