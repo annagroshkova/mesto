@@ -5,7 +5,9 @@
 @import '../blocks/header/__logo/header__logo.css';
 @import '../blocks/main/main.css';
 @import '../blocks/profile/profile.css';
+@import '../blocks/profile/__image-container/profile__image-container.css';
 @import '../blocks/profile/__avatar/profile__avatar.css';
+@import '../blocks/profile/__avatar-edit-button/profile__avatar-edit-button.css';
 @import '../blocks/profile/__info/profile__info.css';
 @import '../blocks/profile/__name/profile__name.css';
 @import '../blocks/profile/__name-text/profile__name-text.css';
@@ -17,6 +19,8 @@
 @import '../blocks/element/__image/element__image.css';
 @import '../blocks/element/__info/element__info.css';
 @import '../blocks/element/__text/element__text.css';
+@import '../blocks/element/__likes/element__likes.css';
+@import '../blocks/element/__likes-amount/element__likes-amount.css';
 @import '../blocks/element/__like-button/element__like-button.css';
 @import '../blocks/element/__like-button/_active/element__like-button_active.css';
 @import '../blocks/element/__trash-icon/element__trash-icon.css';
@@ -36,6 +40,7 @@
 @import '../blocks/popup/__input/_type_error/popup__input_type_error.css';
 @import '../blocks/popup/__error/popup__error.css';
 @import '../blocks/popup/__error/_visible/popup__error_visible.css';
+@import '../blocks/popup/__confirm-button/popup__confirm-button.css';
 @import '../blocks/popup/__submit-button/popup__submit-button.css';
 @import '../blocks/popup/__submit-button/_disabled/popup__submit-button_disabled.css';
 @import '../blocks/popup/__close-button/popup__close-button.css';

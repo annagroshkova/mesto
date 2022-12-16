@@ -1,25 +1,39 @@
-import { Card } from '../components/Card.js';
-import { FormValidator } from '../components/FormValidator.js';
-import { PopupWithImage } from '../components/PopupWithImage.js';
-import { PopupWithForm } from '../components/PopupWithForm.js';
-import { UserInfo } from '../components/UserInfo.js';
-import { Section } from '../components/Section.js';
-import { buttonAdd, buttonEdit, initialCards, validationObject } from '../utils/constants.js';
+import { PopupWithForm } from '../components/PopupWithForm';
+import { Api } from '../components/Api';
+import { buttonAdd, buttonEdit, validationObject } from '../utils/constants';
+import { FormValidator } from '../components/FormValidator';
+import { UserInfo } from '../components/UserInfo';
+import { PopupWithImage } from '../components/PopupWithImage';
+import { PopupWithConfirm } from '../components/PopupWithConfirm';
+import { Section } from '../components/Section';
+import { Card } from '../components/Card';
 import './index.css';
 
-const cardsSection = new Section(
-  {
-    items: initialCards,
-    renderer: item => {
-      const cardElement = createCard('#card-container', item.link, item.name);
-      cardsSection.addItem(cardElement);
-    },
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-55',
+  headers: {
+    authorization: '5d6a4a95-3b77-4e4c-9a74-5ef0cb01a629',
+    'Content-Type': 'application/json',
   },
-  '.elements',
-);
-cardsSection.renderItems();
+});
 
-const userInfo = new UserInfo('.profile__name-text', '.profile__description');
+const formAvatarEditElement = document.forms['avatar-form'];
+
+const popupAvatar = new PopupWithForm(
+  '.popup_edit-avatar',
+  form => {
+    const { avatar } = form;
+    userInfo.setAvatar(avatar);
+    return api.patchAvatar(avatar);
+  },
+  new FormValidator(validationObject, formAvatarEditElement),
+);
+
+const userInfo = new UserInfo('.profile', avatar => {
+  popupAvatar.open({
+    avatar,
+  });
+});
 
 const formEditElement = document.forms['profile-form'];
 const formAddElement = document.forms['card-form'];
@@ -34,26 +48,61 @@ const popupAdd = new PopupWithForm(
   addNewCard,
   new FormValidator(validationObject, formAddElement),
 );
-
 const popupPreview = new PopupWithImage('.popup_image-preview');
+const popupConfirm = new PopupWithConfirm('.popup__confirm');
 
-function createCard(templateSelector, link, text) {
-  const newCard = new Card(templateSelector, link, text, handleCardClick);
+let cardsSection;
+api.getInitialCards().then(cards => {
+  cardsSection = new Section(
+    {
+      items: cards.reverse(),
+      renderer: card => {
+        const cardElement = createCard('#card-container', card);
+        cardsSection.addItem(cardElement);
+      },
+    },
+    '.elements',
+  );
+  cardsSection.renderItems();
+});
+
+api.getUserInfo().then(user => {
+  userInfo.setUserInfo(user);
+});
+
+function createCard(templateSelector, card) {
+  const newCard = new Card(
+    templateSelector,
+    card,
+    userInfo.getUserInfo()._id,
+    () => {
+      popupPreview.open(card.name, card.link);
+    },
+    handleConfirm => {
+      popupConfirm.open(() => {
+        handleConfirm();
+        void api.deleteCard(card._id);
+      });
+    },
+    (liked, handleLikes) => {
+      api.likeCard(card._id, liked).then(card => {
+        handleLikes(card.likes);
+      });
+    },
+  );
   return newCard.getCard();
 }
 
-function addNewCard(formProps) {
-  cardsSection.addItem(
-    createCard('#card-container', formProps['image-link'], formProps['place-name']),
-  );
+function addNewCard(form) {
+  return api.postNewCard(form['place-name'], form['image-link']).then(card => {
+    cardsSection.addItem(createCard('#card-container', card));
+  });
 }
 
-function handleCardClick(text, link) {
-  popupPreview.open(text, link);
-}
-
-function formEditSubmitHandler(inputValues) {
-  userInfo.setUserInfo(inputValues);
+function formEditSubmitHandler(form) {
+  return api.patchUserInfo(form).then(user => {
+    userInfo.setUserInfo(user);
+  });
 }
 
 buttonEdit.addEventListener('click', () => {

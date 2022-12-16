@@ -1,14 +1,11 @@
-import { Popup } from './Popup.js';
+import { Popup } from './Popup';
 
 export class PopupWithImage extends Popup {
-  constructor(popupSelector, formValidator) {
+  constructor(popupSelector) {
     super(popupSelector);
-    this._formValidator = formValidator;
-
     this._popupImage = this._popup.querySelector('.popup__image');
     this._popupUndertext = this._popup.querySelector('.popup__undertext');
   }
-
   open(text, link) {
     this._popupImage.src = link;
     this._popupImage.alt = text;
