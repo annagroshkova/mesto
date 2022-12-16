@@ -64,10 +64,14 @@ api.getInitialCards().then(cards => {
     '.elements',
   );
   cardsSection.renderItems();
+}).catch((err) => {
+  console.log(err);
 });
 
 api.getUserInfo().then(user => {
   userInfo.setUserInfo(user);
+}).catch((err) => {
+  console.log(err);
 });
 
 function createCard(templateSelector, card) {
