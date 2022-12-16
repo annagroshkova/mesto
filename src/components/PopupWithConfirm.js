@@ -1,21 +1,16 @@
 import { Popup } from './Popup';
 
 export class PopupWithConfirm extends Popup {
-  constructor(popupSelector: string) {
+  constructor(popupSelector) {
     super(popupSelector);
-    this._buttonConfirm = this._popup.querySelector('.popup__confirm-button')!;
+    this._buttonConfirm = this._popup.querySelector('.popup__confirm-button');
     this._setEventListeners();
   }
-
-  private _buttonConfirm: HTMLButtonElement;
-  private _handleConfirm!: () => any;
-
-  override open(handleConfirm: () => any) {
+  open(handleConfirm) {
     super.open();
     this._handleConfirm = handleConfirm;
   }
-
-  private _setEventListeners(): void {
+  _setEventListeners() {
     this._buttonConfirm.addEventListener('click', () => {
       this._handleConfirm();
       this.close();

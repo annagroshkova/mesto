@@ -2,7 +2,7 @@
   "name": "mesto",
   "scripts": {
     "build": "webpack --mode production",
-    "dev-webpack": "webpack serve",
+    "dev": "webpack serve",
     "dev-vite": "vite src --open",
     "tsc": "tsc",
     "eslint-all": "eslint-all",

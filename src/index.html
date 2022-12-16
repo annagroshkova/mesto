@@ -8,11 +8,11 @@
 
   <body class="body">
     <header class="header">
-      <img class="header__logo" src="./images/logo_mesto.svg" alt="Логотип сайта" />
-      <!-- todo: remove me before review -->
+      <!-- this is uncommented when developing with vite locally -->
       <!--
-      <img class="header__logo" src=<%=require("./images/logo_mesto.svg")%> alt="Логотип сайта" />
+      <img class="header__logo" src="./images/logo_mesto.svg" alt="Логотип сайта" />
       -->
+      <img class="header__logo" src=<%=require("./images/logo_mesto.svg")%> alt="Логотип сайта" />
     </header>
 
     <main class="main">
@@ -165,7 +165,9 @@
         </div>
       </article>
     </template>
-    <!-- todo: remove me before review -->
+    <!-- this is uncommented when developing with vite locally -->
+    <!--
     <script type="module" src="./pages/index.ts"></script>
+    -->
   </body>
 </html>

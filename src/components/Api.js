@@ -1,26 +1,18 @@
-import { CardObject, UserObject } from '../utils/constants';
-
-class Api {
-  constructor(
-    private _options: {
-      baseUrl: string;
-      headers: any;
-    },
-  ) {}
-
-  getInitialCards(): Promise<CardObject[]> {
+export class Api {
+  constructor(_options) {
+    this._options = _options;
+  }
+  getInitialCards() {
     return fetch(`${this._options.baseUrl}/cards`, {
       headers: this._options.headers,
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
-
-  getUserInfo(): Promise<UserObject> {
+  getUserInfo() {
     return fetch(`${this._options.baseUrl}/users/me`, {
       headers: this._options.headers,
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
-
-  patchUserInfo(user: UserObject): Promise<UserObject> {
+  patchUserInfo(user) {
     return fetch(`${this._options.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._options.headers,
@@ -30,8 +22,7 @@ class Api {
       }),
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
-
-  patchAvatar(avatar: string): Promise<void> {
+  patchAvatar(avatar) {
     return fetch(`${this._options.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._options.headers,
@@ -40,8 +31,7 @@ class Api {
       }),
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
-
-  postNewCard(name: string, link: string): Promise<CardObject> {
+  postNewCard(name, link) {
     return fetch(`${this._options.baseUrl}/cards`, {
       method: 'POST',
       headers: this._options.headers,
@@ -51,26 +41,16 @@ class Api {
       }),
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
-
-  deleteCard(cardId: string): Promise<void> {
+  deleteCard(cardId) {
     return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._options.headers,
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
-
-  likeCard(cardId: string, liked: boolean): Promise<CardObject> {
+  likeCard(cardId, liked) {
     return fetch(`${this._options.baseUrl}/cards/${cardId}/likes`, {
       method: liked ? 'PUT' : 'DELETE',
       headers: this._options.headers,
     }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
   }
 }
-
-export const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-55',
-  headers: {
-    authorization: '5d6a4a95-3b77-4e4c-9a74-5ef0cb01a629',
-    'Content-Type': 'application/json',
-  },
-});
