@@ -1,6 +1,6 @@
 import { PopupWithForm } from '../components/PopupWithForm';
 import { Api } from '../components/Api';
-import { buttonAdd, buttonEdit, validationObject } from '../utils/constants';
+import { buttonAdd, buttonEdit, editAvatarBtn, validationObject } from '../utils/constants';
 import { FormValidator } from '../components/FormValidator';
 import { UserInfo } from '../components/UserInfo';
 import { PopupWithImage } from '../components/PopupWithImage';
@@ -23,24 +23,24 @@ const popupAvatar = new PopupWithForm(
   '.popup_edit-avatar',
   form => {
     const { avatar } = form;
-    userInfo.setAvatar(avatar);
-    return api.patchAvatar(avatar);
+    return api
+      .patchAvatar(avatar)
+      .then(user => {
+        userInfo.setUserInfo(user);
+      })
+      .catch(err => console.error(err));
   },
   new FormValidator(validationObject, formAvatarEditElement),
 );
 
-const userInfo = new UserInfo('.profile', avatar => {
-  popupAvatar.open({
-    avatar,
-  });
-});
+const userInfo = new UserInfo('.profile__name-text', '.profile__description', '.profile__avatar');
 
 const formEditElement = document.forms['profile-form'];
 const formAddElement = document.forms['card-form'];
 
 const popupEdit = new PopupWithForm(
   '.popup_edit',
-  formEditSubmitHandler,
+  handleProfileFormSubmit,
   new FormValidator(validationObject, formEditElement),
 );
 const popupAdd = new PopupWithForm(
@@ -52,13 +52,10 @@ const popupPreview = new PopupWithImage('.popup_image-preview');
 const popupConfirm = new PopupWithConfirm('.popup_confirm');
 
 let cardsSection;
-api
-  .getUserInfo()
-  .then(user => {
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([user, cards]) => {
     userInfo.setUserInfo(user);
-  })
-  .then(() => api.getInitialCards())
-  .then(cards => {
     cardsSection = new Section(
       {
         items: cards.reverse(),
@@ -71,9 +68,7 @@ api
     );
     cardsSection.renderItems();
   })
-  .catch(err => {
-    console.log(err);
-  });
+  .catch(err => console.error(err));
 
 function createCard(templateSelector, card) {
   const newCard = new Card(
@@ -85,29 +80,43 @@ function createCard(templateSelector, card) {
     },
     handleConfirm => {
       popupConfirm.open(() => {
-        handleConfirm();
-        void api.deleteCard(card._id);
+        api
+          .deleteCard(card._id)
+          .then(() => {
+            popupConfirm.close();
+            handleConfirm(); // deletes the card from DOM
+          })
+          .catch(err => console.error(err));
       });
     },
     (liked, handleLikes) => {
-      api.likeCard(card._id, liked).then(card => {
-        handleLikes(card.likes);
-      });
+      api
+        .likeCard(card._id, liked)
+        .then(card => {
+          handleLikes(card.likes);
+        })
+        .catch(err => console.error(err));
     },
   );
   return newCard.getCard();
 }
 
 function addNewCard(form) {
-  return api.postNewCard(form['place-name'], form['image-link']).then(card => {
-    cardsSection.addItem(createCard('#card-container', card));
-  });
+  return api
+    .postNewCard(form['place-name'], form['image-link'])
+    .then(card => {
+      cardsSection.addItem(createCard('#card-container', card));
+    })
+    .catch(err => console.error(err));
 }
 
-function formEditSubmitHandler(form) {
-  return api.patchUserInfo(form).then(user => {
-    userInfo.setUserInfo(user);
-  });
+function handleProfileFormSubmit(form) {
+  return api
+    .patchUserInfo(form)
+    .then(user => {
+      userInfo.setUserInfo(user);
+    })
+    .catch(err => console.error(err));
 }
 
 buttonEdit.addEventListener('click', () => {
@@ -116,4 +125,10 @@ buttonEdit.addEventListener('click', () => {
 
 buttonAdd.addEventListener('click', () => {
   popupAdd.open({});
+});
+
+editAvatarBtn.addEventListener('click', () => {
+  popupAvatar.open({
+    avatar: '',
+  });
 });

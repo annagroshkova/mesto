@@ -1,56 +1,107 @@
+// @ts-check
+
 export class Api {
+  /**
+   * @param {{ baseUrl: string; headers: HeadersInit}} _options
+   */
   constructor(_options) {
     this._options = _options;
   }
+
+  /**
+   * @param res {Response}
+   * @returns {Promise<any>}
+   */
+  _checkResponse(res) {
+    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  /**
+   * @param url {string}
+   * @param options {RequestInit}
+   * @returns {Promise<any>}
+   */
+  _request(url, options = {}) {
+    return fetch(`${this._options.baseUrl}/${url}`, {
+      headers: this._options.headers,
+      ...options,
+    }).then(this._checkResponse);
+  }
+
+  /**
+   * @returns {Promise<any>}
+   */
   getInitialCards() {
-    return fetch(`${this._options.baseUrl}/cards`, {
-      headers: this._options.headers,
-    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
+    return this._request(`cards`);
   }
+
+  /**
+   * @returns {Promise<any>}
+   */
   getUserInfo() {
-    return fetch(`${this._options.baseUrl}/users/me`, {
-      headers: this._options.headers,
-    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
+    return this._request(`users/me`);
   }
+
+  /**
+   * @param {{ name: string; about: string; }} user
+   * @returns {Promise<any>}
+   */
   patchUserInfo(user) {
-    return fetch(`${this._options.baseUrl}/users/me`, {
+    return this._request(`users/me`, {
       method: 'PATCH',
-      headers: this._options.headers,
       body: JSON.stringify({
         name: user.name,
         about: user.about,
       }),
-    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
+    });
   }
+
+  /**
+   * @param {string} avatar
+   * @returns {Promise<any>}
+   */
   patchAvatar(avatar) {
-    return fetch(`${this._options.baseUrl}/users/me/avatar`, {
+    return this._request(`users/me/avatar`, {
       method: 'PATCH',
-      headers: this._options.headers,
       body: JSON.stringify({
         avatar,
       }),
-    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
+    });
   }
+
+  /**
+   * @param {string} name
+   * @param {string} link
+   * @returns {Promise<any>}
+   */
   postNewCard(name, link) {
-    return fetch(`${this._options.baseUrl}/cards`, {
+    return this._request(`cards`, {
       method: 'POST',
-      headers: this._options.headers,
       body: JSON.stringify({
         name,
         link,
       }),
-    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
+    });
   }
+
+  /**
+   * @param {string} cardId
+   * @returns {Promise<any>}
+   */
   deleteCard(cardId) {
-    return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
+    return this._request(`cards/${cardId}`, {
       method: 'DELETE',
-      headers: this._options.headers,
-    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
+    });
   }
+
+  /**
+   * @param {string} cardId
+   * @param {string} liked
+   * @returns {Promise<any>}
+   */
   likeCard(cardId, liked) {
-    return fetch(`${this._options.baseUrl}/cards/${cardId}/likes`, {
+    return this._request(`cards/${cardId}/likes`, {
       method: liked ? 'PUT' : 'DELETE',
-      headers: this._options.headers,
-    }).then(res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)));
+    });
   }
 }
